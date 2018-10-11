@@ -1,0 +1,118 @@
+﻿@using Ahhwall_S.Model.Model
+
+@model Invoice
+
+@{
+    ViewBag.Title = "Invoive";
+}
+
+
+        <div class="printable">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row">
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Partial("_Message", (Message)TempData["Message"])
+                }
+
+                @if (Model == null) { return; }
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+
+                    <h5 class="lg-title mb10">To</h5>
+
+                    <div>
+                        <strong>@Model.RecipientName</strong><br>
+                        <abbr title="Email">Email:</abbr> @Model.RecipientEmail
+                        <br>
+                        <abbr title="Phone">Phone:</abbr> @Model.RecipientPhone
+                    </div>
+                </div><!-- col-sm-6 -->
+
+                <div class="col-xs-6 text-right">
+                    <h5 class="subtitle mb10">Invoice No.</h5>
+                    <h4 class="text-primary">@Model.Number</h4>
+
+                    <h5 class="subtitle mb10">From</h5>
+
+                    <div>
+                        <strong>@Model.IssuerName</strong><br>
+                        @Model.IssuerAddress<br>
+                    </div>
+
+                    <br />
+                    <p><strong>Date:</strong> @DateTime.Now.ToLongDateString()</p>
+
+                </div>
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+
+                        @if (Model.Paid)
+                        {
+                            <div style="color:red; font-weight:bold; font-size:28pt; margin:0; border:0; padding:0 ">PAID</div>
+                        }
+                        <table class="table table-bordered table-condensed grid-wrap table-head-alt mb30" style="margin-top:0; padding-top:0;">
+                            <thead style="height:45px">
+                                <tr>
+                                    <th>Item</th>
+                                    <th style="text-align:center">Quantity</th>
+                                    <th style="text-align:right">Unit Cost (₦)</th>
+                                    <th style="text-align:right">Total Amount (₦)</th>
+                                </tr>
+                            </thead>
+                            @*<tbody>*@
+                            <tr>
+                                <td>
+                                    <a href="">@Model.Items[0].Item</a>
+                                </td>
+                                <td style="text-align:center">1</td>
+                                <td style="text-align:right">@Model.Items.Sum(p => p.TotalCost).ToString("n")</td>
+                                <td style="text-align:right">@Model.Items.Sum(p => p.TotalCost).ToString("n")</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Sub Total</b>
+                                </td>
+                                <td style="text-align:center">1</td>
+                                <td style="text-align:right">@Model.Items.Sum(p => p.TotalCost).ToString("n")</td>
+                                <td style="text-align:right">@Model.Items.Sum(p => p.TotalCost).ToString("n")</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>VAT</b>
+                                </td>
+                                <td style="text-align:center">1</td>
+                                <td style="text-align:right">0.00</td>
+                                <td style="text-align:right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>TOTAL</b>
+                                </td>
+                                <td style="text-align:center"><b>1</b></td>
+                                <td style="text-align:right"><b>@Model.Items.Sum(p => p.TotalCost).ToString("n")</b></td>
+                                <td style="text-align:right"><b>@Model.Items.Sum(p => p.TotalCost).ToString("n")</b></td>
+                            </tr>
+                            @*</tbody>*@
+                        </table>
+                    </div><!-- table-responsive -->
+                </div>
+            </div>
+
+            <div class="well margin-bottom-0" style="border:1px gainsboro solid">
+                Thank you for choosing our school.
+            </div>
+
+        </div><!-- panel-body -->
+        
+    </div><!-- panel -->
+</div>
+
+

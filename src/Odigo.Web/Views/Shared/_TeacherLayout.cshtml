@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        @*<script type="text/javascript">
+            $(document).ready(function () {
+
+            })
+        </script>*@
+
+        <script type="text/javascript" src="@Url.Content("~/Scripts/side-menu.js")"></script>
+        @RenderSection("JavaScript", required: false)
+    }
+</head>
+
+<body>
+    <div class="row">
+
+
+
+
+        <div class="col-md-3">
+
+                    <ul class="list-group">
+                        <li class="list-group-item active" >
+                            <h4 class="list-group-item-heading"><i class="fa fa-user"></i> User Information</h4>
+                            <p class="list-group-item-text">Your basic details</p>
+                        </li>
+
+                        <li class="list-group-item">
+                            <div style="font-weight:bold">Thh</div>New 
+                        </li>
+                        <li class="list-group-item">Deleted</li>
+                        <li class="list-group-item">Warnings</li>
+
+                        @*<li class="list-group-item">
+                            <div style="font-weight:bold">Thh</div>
+                            New <span class="badge">12</span>
+                        </li>
+                        <li class="list-group-item" >Deleted <span class="badge">5</span></li>
+                        <li class="list-group-item" >Warnings <span class="badge">3</span></li>*@
+
+                    </ul>
+
+            <div class="list-group">
+                <a class="list-group-item active">
+                    <h4 class="list-group-item-heading"><i class="fa fa-external-link"></i> Links</h4>
+                    <p class="list-group-item-text">Access to differnt operations</p>
+                </a>
+                <a href="@Url.Action("Index", "News", new { area = "Employer" })" class="list-group-item">
+                    @*<h4 class="list-group-item-heading">First List Group Item Heading</h4>*@
+                    <p class="list-group-item-text"><i class="fa fa-envelope"></i> Request <span class="badge badge-success pull-right"><b>5</b></span></p>
+                </a>
+                <a href="@Url.Action("Index", "News", new { area = "Employer" })" class="list-group-item">
+                    @*<h4 class="list-group-item-heading">Second List Group Item Heading</h4>*@
+                    <p class="list-group-item-text"><i class="fa fa-hourglass"></i> Check Verification Status</p>
+                </a>
+                <a href="@Url.Action("Index", "News", new { area = "Employer" })" class="list-group-item">
+                    <p class="list-group-item-text"><i class="fa fa-upload"></i> Upload Result</p>
+                </a>
+                <a href="@Url.Action("Index", "News", new { area = "Employer" })" class="list-group-item">
+                    <p class="list-group-item-text"><i class="fa fa-money"></i> Make Payment</p>
+                </a>
+            </div>
+
+            @*<div class="list-group">
+                <a href="#" class="list-group-item">First item</a>
+                <a href="#" class="list-group-item">First item</a>
+                <a href="#" class="list-group-item">Second item</a>
+                <a href="#" class="list-group-item">Third item</a>
+            </div>*@
+            
+
+            <div class="panel-group" id="accordion">
+
+                @*<div>
+                    <ul class="nav nav-tabs responsive " id="sideTab">
+                        <li id="tab2" class="test-class active"><a class="deco-none" href="#step1" data-toggle="tab" > <span class="step"><b>Links</b></span></a></li>
+                    </ul>
+
+                    <div class="tab-content responsive tab-content" style="margin:15px 0; padding:0; ">
+                        <div class="tab-pane active" id="step1" >
+                            <div class="table-responsive">
+                                <table class="table grid-table table-head-alt mb30 side-list-links admin-accordion">
+                                   
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Respond to Request", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Check Verification Status", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Make Payment", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Upload Result", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Messages", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        Place your adverts here
+                    </div>
+                </div>
+
+                <br />
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        Place your adverts here
+                    </div>
+                </div>
+
+                <br />
+            </div>
+
+
+
+        </div>
+
+
+        <div class="col-md-9 ">
+            <div id="viewContainer">
+                @RenderBody()
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

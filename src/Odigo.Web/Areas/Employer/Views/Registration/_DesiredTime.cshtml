@@ -1,0 +1,208 @@
+﻿@model Odigo.Web.Areas.Employer.Models.EmployerRegistrationViewModel
+
+@if (Model != null && Model.SelectedEmployerStudentCategories != null && Model.SelectedEmployerStudentCategories.Count > 0)
+{
+    <div class="text-primary">
+        Below shows selected child category. Please specify <b>No of Student</b>, <b>Teaching Mode</b> and <b>Desired time</b>
+    </div>
+<div class="table-responsive">
+    <table class="table table-condensed ">
+
+        <tr class="well">
+            <th class="well"></th>
+            <th>
+            </th>
+            <th>
+                No of Student
+            </th>
+            <th>
+                Teaching Mode
+            </th>
+            <th>
+                Desired Time
+            </th>
+            <th></th>
+        </tr>
+               
+            @for (int i = 0; i < Model.SelectedEmployerStudentCategories.Count; i++)
+            {
+                <tr>
+                    @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].Id)
+                    <td class="well"></td>
+                    <td class="well ">
+                        @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].StudentCategory.Id)
+                        @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].StudentCategory.Name)
+                        @Html.DisplayFor(model => model.SelectedEmployerStudentCategories[i].StudentCategory.Name)
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.SelectedEmployerStudentCategories[i].NoOfStudent, (IEnumerable<SelectListItem>)ViewData["NoOfStudents" + i], new { @class = "form-control applicant" })
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.SelectedEmployerStudentCategories[i].TeacherType.Id, (IEnumerable<SelectListItem>)ViewData["TeacherTypes" + i], new { @class = "form-control applicant" })
+                    </td>
+                    <td>
+                        @if (Model.SelectedEmployerStudentCategories[i].DesiredTimes != null && Model.SelectedEmployerStudentCategories[i].DesiredTimes.Count > 0)
+                    {
+                            <table class="table table-condensed ">
+                                @{
+                                    int k = 0;
+
+                                    for (int p = 0; p < Model.Periods.Count; p++)
+                                    {
+                                        <tr>
+                                            @for (int w = 0; w < Model.WeekDays.Count; w++)
+                                            {
+                                                if (p == 0 || w == 0)
+                                                {
+                                                    <td class="well">
+                                                        <div style="text-align:center;">
+                                                            @Html.DisplayFor(model => model.WeekDays[w].Abbreviation)
+                                                        </div>
+                                                        @Html.DisplayFor(model => model.Periods[p].Name)
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align:center">
+                                                        @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].Id)
+                                                        @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].Period.Id)
+                                                        @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].WeekDay.Id)
+                                                        @Html.CheckBoxFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].IsAvailable, new { @class = "ckb2" })
+
+                                                        @{
+                                                            k = k + 1;
+                                                        }
+                                                    </td>
+                                                                }
+                                                            }
+                                        </tr>
+                                                            }
+                                }
+                            </table>
+                                                            }
+                    </td>
+                    <td></td>
+                </tr>
+            }
+
+    </table>
+</div>
+        }
+
+
+
+
+@*@model List<Odigo.Model.Model.EmployerStudentCategory>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-condensed ">
+
+            <tr class="well">
+                <th class="well"></th>
+                <th>
+                </th>
+                <th>
+                    No of Student
+                </th>
+                <th>
+                    Teaching Mode
+                </th>
+                <th>
+                    Desired Time
+                </th>
+                <th></th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+
+                    @Html.HiddenFor(model => Model[i].Id)
+                    <td class="well"></td>
+                    <td class="well ">
+                        @Html.HiddenFor(model => model[i].StudentCategory.Id)
+                        @Html.DisplayFor(model => model[i].StudentCategory.Name)
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model[i].NoOfStudent, (IEnumerable<SelectListItem>)ViewData["NoOfStudents" + i], new { @class = "form-control applicant" })
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model[i].TeacherType.Id, (IEnumerable<SelectListItem>)ViewData["TeacherTypes" + i], new { @class = "form-control applicant" })
+                    </td>
+                    <td>
+                        @if (Model[i].DesiredTimes != null && Model[i].DesiredTimes.Count > 0)
+                        {
+
+
+
+
+
+                            <table class="table table-condensed ">
+                                    @{
+                                        int k = 0;
+                                        for (int p = 0; p < Model.Periods.Count; p++)
+                                        {
+                                            <tr>
+                                                @for (int w = 0; w < Model.WeekDays.Count; w++)
+                                                {
+                                                    if (p == 0 || w == 0)
+                                                    {
+                                                        <td class="well">
+                                                            <div style="text-align:center;">
+                                                                @Html.DisplayFor(model => model.WeekDays[w].Abbreviation)
+                                                            </div>
+                                                            @Html.DisplayFor(model => model.Periods[p].Name)
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align:center">
+                                                            @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].Id)
+                                                            @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].Period.Id)
+                                                            @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].WeekDay.Id)
+                                                            @Html.CheckBoxFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].IsAvailable, new { @class = "ckb2" })
+
+                                                            @{
+                                                                k = k + 1;
+                                                            }
+                                                        </td>
+                                                                    }
+                                                                }
+                                            </tr>
+                                                                }
+                                    }
+                                </table>
+
+
+
+
+
+
+
+
+                        }
+
+    </td>
+    <td></td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+

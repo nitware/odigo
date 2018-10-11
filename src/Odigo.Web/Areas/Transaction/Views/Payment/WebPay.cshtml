@@ -1,0 +1,292 @@
+﻿@model Odigo.Web.Areas.Transaction.Models.PaymentViewModel
+@using Odigo.Model.Model
+
+@{
+    Layout = "~/Views/Shared/_PlainLayout.cshtml";
+}
+
+<style>
+
+    .rdio {
+        position: relative;
+        cursor: pointer;
+        background: white;
+        border: 5px solid #bbb;
+        height: 22px;
+        width: 22px;
+       
+    }
+
+  
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.print.js")"></script>*@
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#bth").on('click', function () {
+
+                    $("#busy").show();
+                    window.location.href = '@Url.Action("Index", "Home", new { Area = ""})';
+                                       
+                    return false;
+                });
+            })
+    </script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.Id)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.FirstName)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.LastName)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.OtherName)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.DateEntered)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.ContactAddress)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.MobilePhone)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.Email)
+
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Id)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Mode.Id)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Mode.Name)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.SerialNumber)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.InvoiceNumber)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.DateEntered)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.DatePaid)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.Paid)
+
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Id)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Amount)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Id)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Name)
+    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Description)
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    
+                        @if (Model != null && Model.PaymentSlip != null && Model.PaymentSlip.Payment != null && Model.PaymentSlip.Payment.Person != null && Model.PaymentSlip.Payment.Person.Id > 0 && Model.PaymentSlip.Payment.ServiceCharge != null && Model.PaymentSlip.Payment.ServiceCharge.Id > 0)
+                        {
+                            <div class="simple-heading text-danger" style="font-size:18px">
+                                Payment for <b>@Model.PaymentSlip.Payment.ServiceCharge.Service.Name</b>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.PaymentSlip.Payment.Person.Id, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            @Html.DisplayFor(model => model.PaymentSlip.Payment.Person.Id)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.PaymentSlip.Payment.Person.FullName, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            @Html.DisplayFor(model => model.PaymentSlip.Payment.Person.FullName)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.School.Id, new { @class = "control-label " })
+                            </div>
+                            <div class="col-md-8 ">
+                                @Html.DisplayFor(model => model.School.Name)
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+                            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Class.Class, new { @class = "control-label " })
+                            </div>
+                            <div class="col-md-8 ">
+                                @Html.DisplayFor(model => model.Class.Class)
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+                            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Payment.SessionTerm.Id, new { @class = "control-label " })
+                            </div>
+                            <div class="col-md-8 ">
+                                @Html.DisplayFor(modelItem => Model.Payment.SessionTerm.Name)
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+                            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.SubjectCategory.Id, new { @class = "control-label " })
+                            </div>
+                            <div class="col-md-8 ">
+                                @Html.DisplayFor(model => model.SubjectCategory.Name)
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Name, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            @Html.DisplayFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Name)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.PaymentSlip.Payment.ServiceCharge.Amount, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            @Model.PaymentSlip.Payment.ServiceCharge.Amount.ToString("n")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+
+                            <div>
+                                @if (TempData["Message"] != null)
+                                {
+                                    <br />
+                                    @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                                }
+                            </div>
+                        }
+                    
+
+
+
+
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="form-group  ">
+                                <div style="background-color:gainsboro; padding:15px" class="col-md-12 ">
+                                    @*@Html.LabelFor(model => model.Payment.Channel.Id, new { @class = "control-label " })<label class="text-danger">*</label>*@
+                                    @*</div>
+                                    <div class="col-md-8 ">
+                                        @Html.DropDownListFor(model => model.Payment.Channel.Id, (IEnumerable<SelectListItem>)ViewBag.PaymentChannels, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Payment.Channel.Id)*@
+
+
+
+                                    <div>
+                                        <div class="row ">
+                                            <div class="col-md-3 text-center">
+                                                @Html.RadioButtonFor(model => Model.PaymentSlip.Payment.Id, 1, new { id = Model.PaymentSlip.Payment.Id, @class= "rdio" })
+                                                <div style="margin-top:15px">
+                                                    <img src="~/Content/Images/webpay/webpay.png" id="db-logo" alt="isw">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 text-center">
+                                                @Html.RadioButtonFor(model => Model.PaymentSlip.Payment.Id, 2, new { id = Model.PaymentSlip.Payment.Id, @class = "rdio" })
+                                                <div style="margin-top:15px">
+                                                    <img id="safeTokenImg" style="margin-bottom:5px;" src="~/Content/Images/webpay/safetoken.png" alt="safetoken">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 text-center">
+                                                @Html.RadioButtonFor(model => Model.PaymentSlip.Payment.Id, 3, new { id = Model.PaymentSlip.Payment.Id, @class = "rdio" })
+                                                <div style="margin-top:15px">
+                                                    <img id="mcImg" src="~/Content/Images/webpay/mastercode.png" width="76" height="40" alt="mastercode">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 text-center">
+                                                @Html.RadioButtonFor(model => Model.PaymentSlip.Payment.Id, 4, new { id = Model.PaymentSlip.Payment.Id, @class = "rdio" })
+                                                <div style="margin-top:15px">
+                                                    <img id="vsImage" src="~/Content/Images/webpay/visa.png" width="76" height="40" alt="visa">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12 ">
+                            <hr />
+                            <div class="form-group  ">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-8 ">
+                                    @*<button class="btn btn-danger btn-lg " type="button"><i class="fa fa-money "></i> Pay</button>*@
+                                                                        
+                                    <button id="bth" class="btn btn-white btn-lg " type="button"><i class="fa fa-close "></i> Cancel</button>
+                                    <button class="btn btn-danger btn-lg " type="button">Pay</button>
+
+                                    <span id="busy" style="display:none; ">
+                                        <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                                        Redirecting ...
+                                    </span>
+
+
+                                    @*<button class="btn btn-white btn-lg " type="submit">Cancel</button>*@
+
+                                    @*<a href="@Url.Action("Index", "Home", new { area = "" })" class="btn btn-white btn-lg mr5">
+                                        <span>Cancel</span>
+                                    </a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <br />
+}
+

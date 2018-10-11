@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="panel-group" id="accordion">
+
+                <ul class="list-group">
+                    <li class="list-group-item active">
+                        <h4 class="list-group-item-heading"><i class="fa fa-user"></i> User Information</h4>
+                        <p class="list-group-item-text">Your basic details</p>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div style="font-weight:bold">Thh</div>New
+                    </li>
+                    @*<li class="list-group-item">Deleted</li>*@
+                    @*<li class="list-group-item">Warnings</li>*@
+                </ul>
+
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        Place your adverts here
+                    </div>
+                </div>
+
+                <br />
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        Place your adverts here
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-9 ">
+            <div id="viewContainer">
+                @RenderBody()
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

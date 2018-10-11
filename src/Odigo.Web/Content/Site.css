@@ -1,0 +1,135 @@
+﻿body {
+    /*padding-top: 50px;*/
+
+    padding-top: 90px;
+    font-family:'Century Gothic';
+    font-size:15px;
+   
+    /*padding-bottom: 20px;*/
+}
+html{
+    background:black;
+
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.app-logo{
+    height: 65px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    /*display: none;*/
+    color: #b94a48;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+
+
+/* index page css*/
+ .well {
+        padding: 0;
+        border: none;
+    }
+
+    .marquee-home-news {
+        table-layout: fixed;
+        width: 170px;
+        vertical-align: text-top;
+        text-align: center;
+        display: inline-block;
+        word-break: break-all;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        -ms-word-break: break-all;
+        white-space: normal;
+        text-overflow: ellipsis;
+        line-break: strict;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+        font-size: 14px;
+    }
+
+    .side-list-links tr:first-child td:nth-child(1) {
+        border-top: none;
+    }
+
+    .school-list table {
+        font-size: 14px;
+    }
+
+    .school-list .table-responsive {
+        height: 250px;
+    }
+
+    .school-list .tab-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .school-list tr:first-child td:nth-child(1),
+    .school-list tr:first-child td:nth-child(2),
+    .school-list tr:first-child td:nth-child(3) {
+        border-top: none;
+    }
+    
+
+ .margin-bottom-0
+ {
+     margin-bottom:0px;
+ }
+ .record-count-label
+ {
+    font-size: 11pt;
+    text-align: right;
+ }
+ .record-count-label .caption
+ {
+    font-size: 11pt;
+    margin-right:5px;
+ }
+
+  

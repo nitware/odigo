@@ -1,0 +1,167 @@
+﻿@model IEnumerable<Odigo.Model.Model.BasicSetup>
+
+<style>
+    .logopanel {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+        .logopanel h2 {
+            font-size: 30px;
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            letter-spacing: -1.5px;
+            color: #D0104B;
+            line-height: 30px;
+            margin: 0;
+        }
+</style>
+
+@*<div class="alert alert-danger fade in nomargin">
+    <h3>@ViewBag.Title</h3>
+</div>*@
+
+<div class="title-panel">
+    @ViewBag.Title
+</div>
+
+
+@if (@Model == null)
+{
+    return;
+}
+
+@Html.Partial("_IndexSetupHeader", Model.Count())
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        @if (TempData["Message"] != null)
+        {
+            @Html.Partial("_Message", (Odigo.Model.Model.ApplicationMessage)TempData["Message"])
+            <hr />
+        }
+
+        @if (Model != null && Model.Count() > 0)
+        {
+            if (ViewBag.IsIndex != null && ViewBag.IsIndex == true)
+            {
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.ActionLink("Create New", "Create")
+
+                            <div class="pull-right record-count-label" >
+                                <span class="badge-caption">Record Count</span><span class="badge">@Model.Count()</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive " style="font-size:9pt">
+                        <table class="table table-condensed grid-table table-head-alt mb30">
+                            <thead>
+                                <tr class="well" style="height:40px; vertical-align:middle">
+                                    <th>
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            @foreach (Ahhwall_S.Model.BasicSetup item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Edit", new { id = item.Id })" title="Edit">
+                                            <img src="@Url.Content("~/Content/Images/edit_icon.png")" alt="Edit" />
+                                        </a>
+
+                                        <a href="@Url.Action("Delete", new { id = item.Id })" title="Delete">
+                                            <img src="@Url.Content("~/Content/Images/delete_icon.png")" alt="Delete" />
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(model => item.Name)
+                                    </td>                                   
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div class="panel-body">
+
+
+
+
+
+        @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .RenderValueAs(d =>
+            @<div style="width:41px">
+                <a href="@Url.Action("Edit", new { id = d.Id })" title="Edit">
+                    <img src="@Url.Content("~/Content/Images/edit_icon.png")" alt="Edit" />
+                </a>
+
+                <a href="@Url.Action("Delete", new { id = d.Id })" title="Delete">
+                    <img src="@Url.Content("~/Content/Images/delete_icon.png")" alt="Delete" />
+                </a>
+            </div>);
+
+    columns.Add(f => f.Name).Titled("Name");
+
+}).WithPaging(15)
+    </div>*@
+
+</div>
+
+
+<br />
+
+

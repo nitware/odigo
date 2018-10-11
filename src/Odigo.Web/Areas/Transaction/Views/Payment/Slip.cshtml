@@ -1,0 +1,213 @@
+﻿@model Odigo.Web.Areas.Transaction.Models.PaymentViewModel
+@using Odigo.Model.Model
+
+@{
+    ViewBag.Title = "Slip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.print.js")"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#aPrint").on('click', function () {
+                    $(".printable").print();
+                    //return false;
+                });
+
+                $('#submit').click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("SubmitSlip", "Payment", new { Area = "Transaction" })',
+                        data: $("#frmForm").serialize(),
+
+                        beforeSend: function () {
+                            $("#busy").show();
+                        },
+                        complete: function () {
+                            $("#busy").hide();
+                        },
+                        success: function (result) {
+                            var jsonResult = $.parseJSON(result);
+
+                            if (jsonResult.isValid) {
+                                window.location.href = '@Url.Action("WebPay", "Payment", new { Area = "Transaction"})';
+                            }
+                            else {
+                                alert(jsonResult.message);
+                            }
+                        },
+                        error: function () {
+                            alert("Operation failed!");
+                        }
+                    });
+
+                    return false;
+                });
+
+
+
+
+            })
+        </script>
+    }
+<div class="printable">
+
+    <div class="panel panel-default">
+        <div class="panel-body ">
+
+            @*@if (Model != null && Model.PaymentSlip != null && Model.PaymentSlip.Payment != null && Model.PaymentSlip.Payment.Id > 0 && Model.PaymentSlip.Payment.Person != null && Model.PaymentSlip.Payment.Person.Id > 0)*@
+            
+            @if (Model != null && Model.PaymentSlip != null && Model.PaymentSlip.Payment != null && Model.PaymentSlip.Payment.Person != null && Model.PaymentSlip.Payment.Person.Id > 0)
+            {
+                <Div class="text-danger " style="font-style:italic">Payment Slip For</Div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>
+                            @Html.DisplayFor(model => Model.PaymentSlip.Payment.Person.FullName)
+                        </h2>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="busy" style="display:none; ">
+                            <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                            Please wait ...
+                        </span>
+                    </div>
+                </div>
+                
+                using (Html.BeginForm("Slip", "Payment", FormMethod.Post, new { id = "frmForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.Id)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.FirstName)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.LastName)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.OtherName)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.DateEntered)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.ContactAddress)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.MobilePhone)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Person.Email)
+
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Id)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Mode.Id)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Mode.Name)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.SerialNumber)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.InvoiceNumber)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.DateEntered)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.DatePaid)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.Paid)
+
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Id)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Amount)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Id)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Name)
+                    @Html.HiddenFor(model => model.PaymentSlip.Payment.ServiceCharge.Service.Description)
+
+                    if (Model.PaymentSlip.Payment.ServiceCharge != null && Model.PaymentSlip.Payment.ServiceCharge.Id > 0 )
+                    {
+                        <div class="table-responsive ">
+                            <table class="table table-condensed grid-table table-head-alt mb30">
+                                <thead>
+                                    <tr class="well" style="height:40px; vertical-align:middle">
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Invoice No
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Amount
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => Model.PaymentSlip.Payment.DateEntered)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => Model.PaymentSlip.Payment.InvoiceNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => Model.PaymentSlip.Payment.ServiceCharge.Service.Name)
+                                    </td>
+                                    <td>
+                                        @Model.PaymentSlip.Payment.ServiceCharge.Amount.ToString("n")
+                                    </td>
+                                    <td>
+                                        @if (Model.PaymentSlip.Payment.Paid)
+                                        {
+                                            <span>Paid</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Unpaid</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @*@Html.ActionLink("Pay", "Form", null, new { pid = 2 }, new { @class = "btn btn-white btn-lg mr5" })*@
+                                        <button class="btn btn-white btn-lg" type="button" name="submit" id="submit">Pay</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            @if (TempData["Message"] != null)
+                        {
+                                <br />
+                                @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                            }
+                        </div>
+                    }
+                }
+
+                <div style="min-height:120px"></div>
+            }
+            else
+            {
+                <div class="alert alert-dismissible alert-warning">
+                    <p>
+                        Slip not available
+                    </p>
+                </div>
+            }
+
+            <div>
+                <div id="logos">
+                    <div class="line" style="margin-bottom: -10px;">
+                        <img style="margin-right:10px" id="isImage" src="~/Content/Images/webpay/interswitch_logo.jpg" height="40" alt="visa">
+                        <img id="safeTokenImg" style="margin-right:10px;" src="~/Content/Images/webpay/safetoken.png" alt="safetoken">
+                        <img style="margin-right:10px" id="mcImg" src="~/Content/Images/webpay/mastercode.png" height="40" alt="mastercode">
+                        <img style="margin-right:10px" id="vsImage" src="~/Content/Images/webpay/visa.png" height="40" alt="visa">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="form-actions no-color">
+    @*<button class="btn btn-white btn-lg mr5" type="button" name="aPrint" id="aPrint"><i class="fa fa-print "></i> Print Slip</button>*@
+
+    <a href="@Url.Action("Index", "Home", new { area = "" })" class="btn btn-white btn-lg mr5">
+        <i class="fa fa-home "></i>
+        <span>Back to home</span>
+    </a>
+</div>
+

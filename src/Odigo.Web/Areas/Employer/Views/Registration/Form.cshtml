@@ -1,0 +1,384 @@
+﻿@model Odigo.Web.Areas.Employer.Models.EmployerRegistrationViewModel
+@using Odigo.Model.Model
+
+@{
+//Layout = null;
+//Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section JavaScript {
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var lgaId = $("#Employer_Person_Lga_Id").val();
+            if (lgaId == "" || lgaId == null) {
+                $("#Employer_Person_State_Id").val("");
+            }
+
+            $('#Employer_Person_Email').on('input', function () {
+                var email = $('#Employer_Person_Email').val();
+               $("#username").text(email);
+            });
+
+            $("#Employer_Person_State_Id").change(function () {
+                $("#Employer_Person_Lga_Id").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetLocalGovernmentsByState")', //we are calling json method
+                    dataType: 'json',
+                    data: { id: $("#Employer_Person_State_Id").val() },
+                    success: function (lgas) {
+                        $("#Employer_Person_Lga_Id").append('<option value="' + '' + '">-- Select --</option>');
+
+                        $.each(lgas, function (i, lga) {
+                            $("#Employer_Person_Lga_Id").append('<option value="' + lga.Value + '">' + lga.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve lgas.' + ex);
+                    }
+                });
+
+                return false;
+            })
+
+
+
+            $(".ckb1").click(function (event) {
+                var totalSelected = $(".ckb1").filter(":checked").length;
+
+                checkedIds = $(".ckb1").filter(":checked").map(function () {
+                    return this.id;
+                });
+
+                UpdateStudentCategory(checkedIds);
+            })
+
+            function UpdateStudentCategory(checkedIds) {
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    url: "@Url.Action("UpdateStudentCategory", "Registration")",
+                    data: { ids: checkedIds.toArray() },
+
+                    success: SuccessFunc,
+                    error: ErrorFunc,
+                })
+
+                function SuccessFunc(data, status) {
+                    $("#data").html(data);
+                }
+
+                function ErrorFunc() {
+                    alert("Operation failed!");
+                }
+            }
+
+
+            @*$('#submit').click(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SubmitForm", "Registration")',
+                    data: $("#frmForm").serialize(),
+
+                    beforeSend: function () {
+                        $("#busy").show();
+                    },
+                    complete: function () {
+                        $("#busy").hide();
+                    },
+                    success: function (result) {
+                        var jsonResult = $.parseJSON(result);
+
+                        if (jsonResult.isDone) {
+                            window.location.href = '@Url.Action("FormPreview", "Registration", new { Area = "Employer"})';
+                        }
+                        else {
+                            alert("Registration preview page load operation failed! Please try again");
+                        }
+                    },
+                    error: function () {
+                        alert("Operation failed!");
+                    }
+                });
+
+                return false;
+            });*@
+
+
+
+        });
+
+        function beginRequest() {
+            $("#busy").hide();
+        }
+        function endRequest(request, status) {
+            $("#busy").show();
+        }
+
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div>
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                    }
+                </div>
+
+                @*@using (Html.BeginForm("Form", "Registration", FormMethod.Post, new { id = "frmForm", enctype = "multipart/form-data" }))*@
+
+                @using (Html.BeginForm("Form", "Registration", FormMethod.Post, new { id = "frmForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    @Html.HiddenFor(model => model.PersonAlreadyExist)
+                    @Html.HiddenFor(model => model.Employer.Person.Id)
+                    @Html.HiddenFor(model => model.Employer.Person.Type.Id)
+                    @Html.HiddenFor(model => model.Employer.Person.Country.Id)
+                    @Html.HiddenFor(model => model.Employer.Person.IsBlacklisted)
+                    @Html.HiddenFor(model => model.Employer.Person.DateEntered)
+                    
+
+                    <center>
+                        <div class="alert alert-info fade in nomargin">
+                            <h1><b>Registration Form</b></h1>
+                            <p>Kindly fill all the fields provided in this form before clicking the Submit button</p>
+                        </div>
+                    </center>
+
+                    if (Model != null)
+                    {
+                        @*if (Model.Employer.Person.Type.Id == 3)
+                        {
+                            @Html.Partial("~/Areas/Employer/Views/Registration/_Parent.cshtml", Model)
+                            
+                        }
+                        else if (Model.Employer.Person.Type.Id == 4)
+                        {
+                            @Html.Partial("~/Areas/Employer/Views/Registration/_School.cshtml", Model)
+                        }*@
+
+
+                        if (Model.Employer.Person.Type.Id == 3)
+                        {
+                            @Html.Partial("_Parent", Model)
+                        }
+                        else if (Model.Employer.Person.Type.Id == 4)
+                        {
+                            @Html.Partial("_School", Model)
+                        }
+                    }
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div style="font-size:x-large">Desired Time</div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-primary">
+                                        Select your child category of interest from the list below
+                                    </div>
+                                    <div class="table-responsive ">
+                                        <div style="vertical-align:middle; ">
+                                            <table class="table ">
+                                                <tr>
+                                                    @for (int i = 0; i < Model.StudentCategories.Count; i++)
+                                                    {
+                                                        <td>
+                                                            @Html.CheckBoxFor(model => model.StudentCategories[i].IsSelected, new { @class = "ckb1", id = Model.StudentCategories[i].Id }) @Html.DisplayFor(model => Model.StudentCategories[i].Name)
+                                                            @Html.HiddenFor(model => model.StudentCategories[i].Id)
+                                                            @Html.HiddenFor(model => model.StudentCategories[i].Name)
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="data">
+                                @if (Model != null && Model.SelectedEmployerStudentCategories != null && Model.SelectedEmployerStudentCategories.Count > 0)
+                                {
+                                    @Html.Partial("_DesiredTime", Model)
+                                }
+                                else
+                                {
+                                    <div></div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    if (Model.Employer.Person != null && Model.Employer.Person.Id <= 0)
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div style="font-size:x-large">Login Credentials</div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group ">
+                                        <div class="control-label col-md-3" style="height:30px">
+                                            <b>Username</b>
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <span id="username"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-condensed ">
+                                        <tr class="well">
+                                            <th></th>
+                                            <th>
+                                                Password
+                                            </th>
+                                            <th>
+                                                Confirm Password
+                                            </th>
+                                            <th>
+                                                Security Question
+                                            </th>
+                                            <th>
+                                                Security Answer
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td class="well"></td>
+                                            <td>
+                                                @Html.PasswordFor(model => model.Employer.LoginDetail.RawPassword, new { @class = "form-control " })
+                                                @Html.ValidationMessageFor(model => model.Employer.LoginDetail.RawPassword)
+                                            </td>
+                                            <td>
+                                                @Html.PasswordFor(model => model.Employer.LoginDetail.ConfirmPassword, new { @class = "form-control " })
+                                                @Html.ValidationMessageFor(model => model.Employer.LoginDetail.ConfirmPassword)
+                                            </td>
+                                            <td>
+                                                @Html.DropDownListFor(model => model.Employer.LoginDetail.SecurityQuestion.Id, (IEnumerable<SelectListItem>)ViewBag.SecurityQuestions, new { @class = "form-control applicant" })
+                                                @Html.ValidationMessageFor(model => model.Employer.LoginDetail.SecurityQuestion.Id)
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(model => model.Employer.LoginDetail.SecurityAnswer, new { @class = "form-control " })
+                                                @Html.ValidationMessageFor(model => model.Employer.LoginDetail.SecurityAnswer)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-actions no-color">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-lg" type="submit" name="submit" id="submit">Next <i class="fa fa-angle-double-right "></i></button>
+
+                                <span id="busy" style="display:none; ">
+                                    <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                                    Please wait ...
+                                </span>
+
+                                @*<button class="btn btn-primary btn-lg" type="submit" name="submit" id="submit">Next <i class="fa fa-chevron-right "></i><i class="fa fa-chevron-right "></i></button>*@
+                            </div>
+
+                            @*<div class="form-group">
+                                <div id="busy" style="display:none">
+                                    <img src="@Url.Content("~/Content/Images/bx_loader.gif")" />
+                                    <span>Processing ...</span>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+
+                    <div>
+                        @if (TempData["Message"] != null)
+                        {
+                            <br />
+                            @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                        }
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

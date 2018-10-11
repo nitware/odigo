@@ -1,0 +1,14 @@
+﻿@model List<Odigo.Model.Model.News>
+@using Odigo.Model.Model;
+
+<table class="table grid-table side-list admin-accordion">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(Model[i].Title, "Index", "News", new { Area = "Common" }, new { target = "_self" })
+            </td>
+        </tr>
+    }
+</table>
+

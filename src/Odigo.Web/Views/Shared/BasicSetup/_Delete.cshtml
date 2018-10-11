@@ -1,0 +1,66 @@
+﻿@model Odigo.Model.Model.BasicSetup
+
+<div class="title-panel">
+    @ViewBag.Title
+</div>
+
+@*<div class="alert alert-danger fade in nomargin">
+    <h3>@ViewBag.Title</h3>
+</div>*@
+
+<div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="confirm-delete-text">Are you sure you want to delete this?</div>
+            <hr />
+
+            <dl class="dl-horizontal">
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Partial("_Message", (Odigo.Model.Model.ApplicationMessage)TempData["Message"])
+                }
+
+                @if (Model == null) { return; }
+
+                <dt class="space-bottom">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd class="space-bottom">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
+
+            <hr />
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <dl class="dl-horizontal">
+                    <dt class="space-bottom">
+                    </dt>
+
+                    <dd class="space-bottom">
+                        <input type="submit" value="Delete" class="btn btn-default" /> |
+                        @Html.ActionLink("Back to List", "Index")
+                    </dd>
+                </dl>
+            }
+
+            @*@using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }*@
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,45 @@
+﻿@model Odigo.Model.Model.BasicSetup
+
+@*<div class="alert alert-danger fade in nomargin">
+    <h3>@ViewBag.Title</h3>
+</div>*@
+
+<div class="title-panel">
+    @ViewBag.Title
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Partial("_Message", (Odigo.Model.Model.ApplicationMessage)TempData["Message"])
+                }
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Enter Name" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+
+                <hr />
+                               
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" /> | @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

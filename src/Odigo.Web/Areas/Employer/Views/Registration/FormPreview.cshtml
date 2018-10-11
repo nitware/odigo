@@ -1,0 +1,310 @@
+﻿@model Odigo.Web.Areas.Employer.Models.EmployerRegistrationViewModel
+@using Odigo.Model.Model
+
+@{
+
+}
+
+@section JavaScript {
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            UpdateButton($('#checkboxDefault'));
+
+            //$('#submit').attr('disabled', 'disabled');
+
+            $('#checkboxDefault').click(function () {
+                UpdateButton($(this));
+            });
+
+            function UpdateButton(chk) {
+                if (chk.is(':checked')) {
+                    $('#submit').removeAttr('disabled');
+                } else {
+
+                    $('#submit').attr('disabled', 'disabled');
+                }
+            }
+
+            $('#submit').click(function () {
+
+                 $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("FormPreview", "Registration")',
+                    //traditional: true,
+                    //datatype: 'json',
+                    data: $("#frmForm").serialize(),
+
+                    beforeSend: function () {
+                        $("#busy").show();
+                    },
+                    complete: function () {
+                        $("#busy").hide();
+                    },
+                    success: function (result) {
+                        var jsonResult = $.parseJSON(result);
+
+                        if (jsonResult.isDone) {
+                            window.location.href = '@Url.Action("Slip", "Payment", new { Area = "Transaction"})';
+                        }
+                        else {
+                            alert(jsonResult.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Operation failed!");
+                    }
+                });
+
+                return false;
+            });
+
+
+
+        });
+
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div>
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                    }
+                </div>
+
+                @using (Html.BeginForm("FormPreview", "Registration", FormMethod.Post, new { id = "frmForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                                       
+                    @Html.HiddenFor(model => model.PersonAlreadyExist)
+                    @Html.HiddenFor(model => model.Employer.Person.Id)
+                    @Html.HiddenFor(model => model.Employer.Person.Type.Id)
+                    @Html.HiddenFor(model => model.Employer.Person.Country.Id)
+                    @Html.HiddenFor(model => model.Employer.Person.IsBlacklisted)
+
+                    <center>
+                        <div class="alert alert-info fade in nomargin">
+                            <h1><b>Registration Form Preview</b></h1>
+                            <p>Kindly fill all the fields provided in this form before clicking the Submit button</p>
+                        </div>
+                    </center>
+
+                    if (Model != null && Model.Employer != null && Model.Employer.Person != null && Model.Employer.Person.Type != null)
+                    {
+                        if (Model.Employer.Person.Type.Id == 3)
+                        {
+                            @Html.Partial("_ParentPreview", Model)
+                        }
+                        else if (Model.Employer.Person.Type.Id == 4)
+                        {
+                            @Html.Partial("_SchoolPreview", Model)
+                        }
+                    }
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div style="font-size:x-large">Desired Time</div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed ">
+
+                                    <tr class="well">
+                                        <th class="well"></th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                            No of Student
+                                        </th>
+                                        <th>
+                                            Teaching Mode
+                                        </th>
+                                        <th>
+                                            Desired Time
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                    @for (int i = 0; i < Model.SelectedEmployerStudentCategories.Count; i++)
+                                    {
+                                        if (Model.SelectedEmployerStudentCategories[i].StudentCategory != null && Model.SelectedEmployerStudentCategories[i].StudentCategory.Id > 0 && Model.SelectedEmployerStudentCategories[i].NoOfStudent > 0 && Model.SelectedEmployerStudentCategories[i].TeacherType != null && Model.SelectedEmployerStudentCategories[i].TeacherType.Id > 0)
+                                        {
+                                        <tr>
+                                            @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].Id)
+                                            @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].Person.Id)
+                                            <td class="well"></td>
+                                            <td class="well ">
+                                                @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].StudentCategory.Id)
+                                                @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].StudentCategory.Name)
+                                                @Html.DisplayFor(model => model.SelectedEmployerStudentCategories[i].StudentCategory.Name)
+                                            </td>
+                                            <td>
+                                                @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].NoOfStudent)
+                                                @Html.DisplayFor(model => model.SelectedEmployerStudentCategories[i].NoOfStudent)
+                                            </td>
+                                            <td>
+                                                @Html.HiddenFor(model => model.SelectedEmployerStudentCategories[i].TeacherType.Id)
+                                                @Html.DisplayFor(model => model.SelectedEmployerStudentCategories[i].TeacherType.Name)
+                                            </td>
+                                            <td>
+                                                @if (Model.SelectedEmployerStudentCategories[i].DesiredTimes != null && Model.SelectedEmployerStudentCategories[i].DesiredTimes.Count > 0)
+                                                {
+                                                    <table class="table table-condensed ">
+                                                        @{
+                                                            int k = 0;
+
+                                                            for (int p = 0; p < Model.Periods.Count; p++)
+                                                            {
+                                                                <tr>
+                                                                    @for (int w = 0; w < Model.WeekDays.Count; w++)
+                                                                    {
+                                                                        if (p == 0 || w == 0)
+                                                                        {
+                                                                            <td class="well">
+                                                                                <div style="text-align:center;">
+                                                                                    @Html.DisplayFor(model => model.WeekDays[w].Abbreviation)
+                                                                                </div>
+                                                                                @Html.DisplayFor(model => model.Periods[p].Name)
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td style="text-align:center">
+                                                                                @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].Period.Id)
+                                                                                @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].WeekDay.Id)
+                                                                                @Html.HiddenFor(model => Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].IsAvailable)
+
+                                                                                @if (Model.SelectedEmployerStudentCategories[i].DesiredTimes[k].IsAvailable)
+                                                                                {
+                                                                                    <img src="@Url.Content("~/Content/Images/success.png")" height="20" alt="" />
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <img src="@Url.Content("~/Content/Images/error.png")" height="20" alt="" />
+                                                                                }
+
+                                                                                @{
+                                                                                    k = k + 1;
+                                                                                }
+
+                                                                            </td>
+                                                                                        }
+                                                                                    }
+                                                                </tr>
+                                                                                    }
+                                                        }
+                                                    </table>
+                                                                                    }
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                                                                        }
+                                                                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                                                                                    if (Model.Employer.Person != null && Model.Employer.Person.Id <= 0)
+                                                                                    {
+                                                                                        <div class="panel panel-default">
+                                                                                            <div class="panel-heading">
+                                                                                                <div style="font-size:x-large">Login Credentials</div>
+                                                                                            </div>
+                                                                                            <div class="panel-body">
+                                                                                                <table class="table table-condensed table-responsive">
+                                                                                                    <tr class="well">
+                                                                                                        <th></th>
+                                                                                                        <th>
+                                                                                                            Username
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Security Question
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Security Answer
+                                                                                                        </th>
+                                                                                                        <th></th>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td class="well"></td>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(model => model.Employer.Person.Email)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.HiddenFor(model => model.Employer.LoginDetail.SecurityQuestion.Id)
+                                                                                                            @Html.DisplayFor(model => model.Employer.LoginDetail.SecurityQuestion.Question)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.HiddenFor(model => model.Employer.LoginDetail.SecurityAnswer)
+                                                                                                            @Html.DisplayFor(model => model.Employer.LoginDetail.SecurityAnswer)
+                                                                                                        </td>
+                                                                                                        <td></td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+
+                                                                                    <div class="panel panel-default">
+                                                                                        <div class="panel-heading">
+                                                                                            <div style="font-size:x-large">Declaration</div>
+                                                                                        </div>
+                                                                                        <div class="panel-body">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <blockquote>
+                                                                                                        <i class="fa fa-quote-left"></i>
+                                                                                                        <p>
+                                                                                                            I hereby acknowledge by ticking this check box below, that if it is discovered at any time that I do not possess any of the qualifications which I claim
+                                                                                                            I have obtained, I will be blacklisted from the system.
+                                                                                                        </p>
+                                                                                                    </blockquote>
+
+                                                                                                    <div class="ckbox ckbox-default">
+                                                                                                        <input type="checkbox" id="checkboxDefault" />
+                                                                                                        <label for="checkboxDefault"><b style="font-size:13pt">I Agree</b></label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                        <div class="form-actions no-color">
+                                                                                            <button class="btn btn-primary btn-lg" type="button" name="submit" id="submit"><i class="fa fa-save mr5"></i> Submit</button>
+
+                                                                                            @*@Html.ActionLink("<< Back to Form", "Form", null, new { @class = "btn btn-white btn-lg mr5" })*@
+
+                                                                                            <a href="@Url.Action("Form", "Registration", new { area = "Employer" })" class="btn btn-white btn-lg">
+                                                                                                <i class="fa fa-angle-double-left "></i>
+                                                                                                <span>Back to Form</span>
+                                                                                            </a>
+
+                                                                                            <span id="busy" style="display:none; ">
+                                                                                                <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                                                                                                Processing ...
+                                                                                            </span>
+                                                                                        </div>
+
+                                                                                        <div>
+                                                                                            @if (TempData["Message"] != null)
+                                                                                            {
+                                                                                                <br />
+                                                                                                @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                                                                                            }
+                                                                                        </div>
+                                                                                    }
+            </div>
+
+        </div>
+    </div>
+</div>

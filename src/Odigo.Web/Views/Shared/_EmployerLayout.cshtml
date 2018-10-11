@@ -1,0 +1,195 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var pageId = $("#spCurrentPage").text();
+                
+                if (pageId > 0) {
+                    GetViewAsync(pageId);
+                }
+
+                $("#btnFindTeacher").click(function () {
+                    GetViewAsync(1)
+                })
+                $("#btnRequest").click(function () {
+                    GetViewAsync(2)
+                })
+                $("#btnDesiredTime").click(function () {
+                    GetViewAsync(3)
+                })
+
+                function GetViewAsync(view) {
+                    //alert(view);
+
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("GetView", "Activity", new { Area = "Employer"})',
+                        data: { pid: view },
+
+                        beforeSend: function () {
+                            $("#busy").show();
+                        },
+                        complete: function () {
+                            $("#busy").hide();
+                        },
+                        success: function (result) {
+                            $("#spCurrentPage").text(view);
+                            $("#dvContent").html(result);
+                        },
+                        error: function () {
+                            alert("Operation failed!");
+                        },
+                    });
+                }
+
+
+                })
+            </script>
+
+        <script type="text/javascript" src="@Url.Content("~/Scripts/side-menu.js")"></script>
+        @RenderSection("JavaScript", required: false)
+    }
+
+    <style>
+        .sm{
+            width:100%; 
+            text-align:left
+        }
+        .list-group button:hover {
+            background-color:red;
+        }
+
+        /*.list-group button:active {
+            background-color:blue;
+        }*/
+    </style>
+</head>
+
+<body>
+   
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="panel-group" id="accordion">
+
+                <ul class="list-group">
+                    <li class="list-group-item active">
+                        <h4 class="list-group-item-heading"><i class="fa fa-user"></i> User Information</h4>
+                        <p class="list-group-item-text">Your basic details</p>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div style="font-weight:bold">Thh</div>New
+                    </li>
+                    @*<li class="list-group-item">Deleted</li>*@
+                    @*<li class="list-group-item">Warnings</li>*@
+                </ul>
+
+                <div class="list-group">
+                    <div class="list-group-item active">
+                        <h4 class="list-group-item-heading"><i class="fa fa-external-link"></i> Links</h4>
+                        <p class="list-group-item-text">Access to differnt operations</p>
+                    </div>
+
+                    <button id="btnMessages" class="list-group-item sm"><i class="fa fa-envelope"></i> Messages <span class="badge badge-success pull-right"><b>5</b></span></button>
+                    <button id="btnFindTacher" class="list-group-item sm"><i class="fa fa-search"></i> Find Teacher</button>
+                    <button id="btnDesiredTime" class="list-group-item sm"><i class="fa fa-edit"></i> Modify Desired Time</button>
+                    <button id="btnRateTeacher" class="list-group-item sm"><i class="fa fa-level-up"></i> Rate Teacher</button>
+                    <button id="btnMakePayment" class="list-group-item sm"><i class="fa fa-money"></i> Make Payment</button>
+                </div>
+
+
+
+                @*<div>
+                    <ul class="nav nav-tabs responsive " id="sideTab" style="text-align:right">
+                        <li id="tab2" class="test-class active"><a class="deco-none" href="#step1" data-toggle="tab"> <span class="step"><b>Links</b></span></a></li>
+                    </ul>
+
+                    <div class="tab-content responsive tab-content" style="margin:15px 0; padding:0; ">
+
+
+                        <div class="tab-pane active" id="step1">
+                            <div class="table-responsive">
+                                <table class="table grid-table table-head-alt mb30 side-list-links admin-accordion">
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Find Teacher", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Send Request to Teacher", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Modify Desired Time", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Rate Teacher", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Make Payment", "Index", "News", new { Area = "Common" }, new { target = "_self" })
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                   
+                    </div>
+                </div>*@
+
+
+
+
+
+              
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        Place your adverts here
+                    </div>
+                </div>
+
+                <br />
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        Place your adverts here
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-9 ">
+            <div id="viewContainer">
+                @RenderBody()
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+﻿@model List<Odigo.Model.Model.Teacher>
+@using Odigo.Model.Model
+
+@{
+    Layout = null;
+}
+
+
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+
+@if (Model != null && Model.Count > 0)
+{
+    
+
+    <div class="table-responsive ">
+        <table id="tbLVT" class="table grid-table table-striped table-condensed table-head-alt mb30">
+            @*table-condensed*@ 
+            @*<table id="tbLVT" class="table grid-table grid-striped">*@
+            <thead>
+
+                <tr style="height:40px; vertical-align:middle; background-color:#97b6d2;" >
+
+                @*<tr style="height:40px; vertical-align:middle;  background-color:silver">*@
+                    <th class="well">
+                        Name
+                    </th>
+                    <th class="well">
+                        Work Mode
+                    </th>
+                    <th class="well">
+                        Qualification
+                    </th>
+                    <th class="well">
+                        Child Category
+                    </th>
+                    <th class="well">
+                        Experience
+                    </th>
+                    <th class="well">
+                        Location
+                    </th>
+                    <th class="well"></th>
+                </tr>
+            </thead>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(Model[i].Person.FullName, "Details", "Tutor", new { Area = "Common", tid = Model[i].Person.Id }, new { target = "_blank" })
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => Model[i].Type.Id)
+                        @Html.DisplayFor(model => Model[i].Type.Name)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => Model[i].Qualifications)
+                        @Html.DisplayFor(model => Model[i].Qualifications)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => Model[i].ChildCategories)
+                        @Html.DisplayFor(model => Model[i].ChildCategories)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => Model[i].Experience)
+                        @Html.DisplayFor(model => Model[i].Experience)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => Model[i].Person.State.Id)
+                        @Html.DisplayFor(model => Model[i].Person.State.Name)
+                    </td>
+                    <td>
+                        <a target="_blank" href="@Url.Action("CostImplication", "Request", new { area = "Employer", epid = 62, tid = Model[i].Person.Id })" class="btn btn-white btn-lg">
+                            <i class="fa fa-envelope-o "></i>
+                            <span>Send Request</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-dismissible alert-danger">
+        <p>
+            No teacher found!
+        </p>
+    </div>
+}
+
+

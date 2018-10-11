@@ -1,0 +1,71 @@
+﻿@model Odigo.Model.Model.Setup
+
+@*<div class="alert alert-warning fade in nomargin">
+    <h3>@ViewBag.Title</h3>
+</div>*@
+
+@*<div class="page-header">
+    <h2>@ViewBag.Title</h2>
+</div>*@
+
+@*<div class="alert alert-danger fade in nomargin">
+    <h3>@ViewBag.Title</h3>
+</div>*@
+
+<div class="title-panel">
+    @ViewBag.Title
+</div>
+
+@Html.Partial("_IndexSetupHeader", -1)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-horizontal">
+
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Partial("_Message", (Odigo.Model.Model.ApplicationMessage)TempData["Message"])
+                }
+                @if (Model == null) { return; }
+
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" /> | @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <hr />*@
+

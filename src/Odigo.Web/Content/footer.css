@@ -1,0 +1,300 @@
+﻿body {
+}
+
+#footer {
+    /*background:#f55f8d;*/
+	background-color: #171717;
+    padding: 20px 0 ;
+    /*padding-bottom:20px;*/
+	
+    /*background-color:#171717;*/
+}
+#footer-bottom {
+	background-color: #111;
+    /*background:#D0104B;*/
+    padding: 20px 0;
+    /*margin-top: 20px 0;*/
+	border-top: 2px solid #333;
+}
+
+.copyrights {
+	float: left;
+	font-size: 13px;
+}
+.powered-by a{
+    color: #acacac;
+}
+
+.row.isotope {
+	padding-right: 0;
+	margin-left: 0;
+}
+
+.widget-title {
+	position: relative;
+}
+.widget-title:before {
+	content: "";
+	height: 4px;
+	width: 30px;
+	background-color: #5c5c5c;
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+}
+.widget-title h6 {
+	font-size: 15px;
+	border-bottom: 1px solid #282828;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+/* Widget posts */
+.widget-posts {
+	overflow: hidden;
+	height: 100%;
+}
+.widget-posts > ul > li {
+	margin-bottom: 30px;
+	list-style: none;
+}
+.widget-posts > ul > li:last-child {
+	margin-bottom: 0;
+}
+.widget-post-img {
+	float: left;
+	height: 70px;
+	width: 70px;
+	overflow: hidden;
+	height: 100%;
+	margin-right: 20px;
+}
+.widget-post-img img {
+	height: 70px;
+	width: 70px;
+}
+.widget-post-content {
+	overflow: hidden;
+	height: 100%;
+}
+.widget-post-content h6 {
+	font-size: 13px;
+	line-height: 22px;
+	margin-bottom: 10px;
+}
+.widget-post-content span {
+	font-size: 12px;
+}
+
+/* Widget about */
+.widget-about {
+	overflow: hidden;
+	height: 100%;
+}
+.widget-about p {
+	font-size: 13px;
+}
+.widget-about .social-ul {
+	float: left;
+}
+.widget-about .social-ul li a {
+	height: 33px;
+	width: 33px;
+	line-height: 33px;
+	border: none;
+	background-color: #333;
+	margin: 0 5px 5px 0;
+	font-size: 16px;
+}
+.widget-about .social-ul li:last-child a {
+	margin-right: 0;
+}
+
+/* Widget about 2 */
+.widget-about-2 {
+	overflow: hidden;
+	height: 100%;
+}
+.widget-about-2 > ul > li {
+	/*margin-bottom: 30px;*/
+    margin-bottom: 15px;
+	list-style: none;
+}
+.widget-about-2 > ul > li:last-child {
+	margin-bottom: 0;
+}
+.widget-about-2 > ul > li > i {
+	float: left;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	font-size: 15px;
+	background-color: #282828;
+	color: #bababa;
+	margin-right: 20px;
+	text-align: center;
+}
+.widget-about-2 > ul > li > div {
+	overflow: hidden;
+	height: 100%;
+	font-size: 13px;
+	line-height: 22px;
+}
+
+.header-search-a,
+.header-search-form,
+.header-search-form input,
+.navigation li:hover ul,
+.widget-about 
+.social-ul li a,
+.widget-about-2 > ul > li > i,
+.widget-post-img,
+.bxslider-slide 
+.bx-controls-direction a,
+.sidebar-tweet 
+.bx-controls-direction a,
+.portfolio-one,
+.portfolio-link,
+.portfolio-zoom,
+.portfolio-content > i,
+.button-1,
+.blog-img,
+.blog-date,
+.testimonial-content,
+.protfolio-filter li a,
+.member-head,
+.member-hover 
+.social-ul li a,
+.callout,
+.button-3,
+.button-4,
+.pricing-tables,
+.pagination a,
+.widget,
+.post-social li a,
+.post-author,
+.commentlist li.comment .comment-body .comment-text,input[type="text"],input[type="password"],input[type="email"],input[type="url"],textarea,select,.about-slide li,.single-portfolio-slide.bxslider-slide li,#coming-soon .col-md-3 > div,.social li a,.slideshow .tparrows,.tp-caption.color.large_bg,.button-5,.button-6,.go-up,.commentlist li.comment .comment-body {
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+/* Widget posts */
+.widget-posts {
+	overflow: hidden;
+	height: 100%;
+}
+.widget-posts > ul > li {
+	margin-bottom: 30px;
+	list-style: none;
+}
+.widget-posts > ul > li:last-child {
+	margin-bottom: 0;
+}
+.widget-post-img {
+	float: left;
+	height: 70px;
+	width: 70px;
+	overflow: hidden;
+	height: 100%;
+	margin-right: 20px;
+}
+.widget-post-img img {
+	height: 70px;
+	width: 70px;
+}
+.widget-post-content {
+	overflow: hidden;
+	height: 100%;
+}
+.widget-post-content h6 {
+	font-size: 13px;
+	line-height: 22px;
+	margin-bottom: 10px;
+}
+.widget-post-content span {
+	font-size: 12px;
+}
+
+/* Color #acacac */
+.social-ul li a,.navigation li ul li a,.header-search-a,.header-search-form input,#footer,#footer a,#footer-bottom,.crumbs a,.crumbs span,.portfolio-cat a,.testimonial-item-2 .testimonial-name span:last-child,.pagination a,.section-3 .testimonial-name span:last-child,.widget .widget-post-content h6 a,.widget ul li a,input[type="text"],input[type="password"],input[type="email"],input[type="url"],textarea,select,.contact-information li:first-child,.search-404 button,.blockquote-1:before {
+	color: #acacac;
+}
+/* Color #171717 */
+.phone-email-2:before,.phone-email:hover,.phone-email:hover i,.crumbs,span.crumbs-span,.box-icon-i,.button-1:hover,.progressbar-title,.progressbar-title span,.blog-content h6 a:hover,.box-icon .box-icon-i-5 i,.box-icon.box-icon-3 h5,.box-icon.box-icon-3 p a:hover,.protfolio-filter li a,.section-4 .sections-title p,.callout.callout-2 > h6,.section-4 .box-icon p,.pricing-header div span,.testimonial-item-2 .testimonial-name span:first-child,.widget ul li a span,.sidebar-tweet ul li a,.portfolio-item-2 .portfolio-meta h6 a,.portfolio-details li span,.contact-information li,.page-404 h3,#coming-soon .col-md-3 > div span:last-child,.quote-name,.callout.callout-3 > h6,.accordion .accordion-title a,.navigation_mobile_click,.navigation_mobile > ul li,.navigation_mobile > ul a,.navigation_mobile > ul a i,#header-top.header-top-3 .phone-email-2:before,#header-top.header-top-3 .phone-email i,#header-top.header-top-3 .phone-email:hover {
+	color: #171717;
+}
+/* Color #5c5c5c */
+.widget-post-content span,.sections-title p,.blog-meta div,.blog-meta div a,#footer-bottom .navigation-footer > ul > li > a,.testimonial-content div:first-child,.testimonial-content div:last-child,.testimonial-name span:last-child,.member-content span,.post-tag i,.post-tag a,.coming-soon p {
+	color: #5c5c5c;
+}
+
+/* Color #FFF */
+.white, .social-ul li a:hover, .header-search-a:hover, .header-search-active .header-search-a, .navigation li ul li a:hover, 
+.navigation-2
+.navigation li ul li a,
+.navigation li ul li.current_page_item > a,
+#footer .widget-about .social-ul a:hover,
+#footer-bottom a:hover,.widget-about-2 > ul > li:hover > i,
+#footer .widget-twitter a:hover,
+#footer span.tweet_time a,.box-icon:hover .box-icon-i-2 i,
+.bxslider-slide .bx-controls-direction a,.sidebar-tweet 
+.bx-controls-direction a,.section-3 .sections-title-h3 h3,
+.section-4 .sections-title-h3 h3,.portfolio-link,.portfolio-zoom,
+.portfolio-link:hover,.portfolio-zoom:hover,.portfolio-content > i,
+.button-1:hover,.accordion .accordion-title a i,.blog-date,.social-ul-2 li a,
+.button-1.button-2,.section-3 .testimonial-item-2 .testimonial-name span:first-child,
+.section-4 .testimonial-item-2 .testimonial-name span:first-child,
+.protfolio-filter li a:hover,.protfolio-filter li.current a,.member-hover 
+.social-ul li a,.button-3,.button-4,.section-4 .box-icon-i i,.section-4 
+.box-icon h5,.pricing-tables:hover .pricing-header h3,.pricing-tables:hover 
+.pricing-header div,.pagination a:hover,.pagination li.pagination-prev a,
+.pagination li.pagination-next a,.widget.widget-twitter .widget-title h6,
+.sidebar-tweet ul li,.widget .sidebar-tweet ul li a:hover,.sidebar-tweet ul li 
+.tweet_time a,.sidebar-tweet:before,.comment-reply.button-4:hover,
+.about-video a:hover,.portfolio-item-2 .portfolio-meta h6 a:hover,
+.portfolio-item-2 .portfolio-meta .portfolio-desc p,.blockquote-3,.callout.callout-3 p,
+.callout.callout-5 p,.alerts > i,.social li a,.slideshow .tparrows,.button-6,.go-up,.sidebar-tweet p,
+#header-top.header-top-2 .phone-email:hover,#header-top.header-top-2 .phone-email:hover i,
+#header-top.header-top-3 .phone-email,
+#header-top.header-top-3 .social-ul li a,
+.navigation > ul > li:hover li:hover > a,.navigation > ul > li.mega-menu li li.current_page_item:before,
+.navigation > ul > li.mega-menu li li:hover:before,
+#header.header-3 .navigation > ul > li.mega-menu li li:hover:before {
+	color: #333
+}
+
+/* Animation */
+.social-ul li:hover i, 
+.header-search-a:hover i, 
+.box-icon:hover .box-icon-i-2 i, 
+.portfolio-link:hover i, 
+.portfolio-zoom:hover i
+{
+	-webkit-animation: toTopFromBottom 0.3s forwards;
+	-moz-animation: toTopFromBottom 0.3s forwards;
+	animation: toTopFromBottom 0.3s forwards; 
+}
+.social-ul li.social-facebook a:hover,.social-ul-2 li.social-facebook a  {
+	background-color: #5d82d1;
+}
+.social .social-facebook a {
+	background-color: #5d82d1;
+}
+.social-ul {
+	float: right;
+	overflow: hidden;
+	height: 100%;
+}
+.social-ul li, .social-ul li a {
+	float: left;
+	list-style: none;
+}
+.social-ul li a {
+	height: 35px;
+	width: 35px;
+	font-size: 15px;
+	text-align: center;
+	border-right: 1px solid #eae9e9;
+}
+

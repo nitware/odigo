@@ -1,0 +1,146 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script type="text/javascript" src="@Url.Content("~/Scripts/setupLayout.js")"></script>
+    @RenderSection("JavaScript", required: false)
+    }
+
+    
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="side-link" style="background-color:dimgray; padding:3px 15px;color:whitesmoke; margin-bottom:5px; border-radius:5px">
+                <h3>Basic Setup</h3>
+            </div>
+
+            <div class="main">
+                <div class="panel-group" id="accordion">
+                    @*<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#school">School</a>
+                            </h4>
+                        </div>
+                        <div id="school" class="panel-collapse collapse in admin-accordion">
+                            <div class="panel-body ">
+                                <ul>
+                                    <li id="lnkSchool">@Html.ActionLink("School Type", "Index", "SchoolType", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkSchoolCategory">@Html.ActionLink("School Category", "Index", "SchoolCategory", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkSchool">@Html.ActionLink("School", "Index", "School", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkSchoolPhone">@Html.ActionLink("School Phone", "Index", "SchoolPhone", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkSchoolBranch">@Html.ActionLink("School Branch", "Index", "SchoolBranch", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkSchoolBranchPhone">@Html.ActionLink("Branch Phone", "Index", "SchoolBranchPhone", new { Area = "Admin" }, null)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>*@
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#fee">Services</a>
+                            </h4>
+                        </div>
+                        <div id="fee" class="panel-collapse collapse in admin-accordion">
+                            <div class="panel-body ">
+                                <ul>
+                                    <li id="lnkFee">@Html.ActionLink("Service", "Index", "Fee", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkFeeType">@Html.ActionLink("Service Charge", "Index", "FeeType", new { Area = "Admin" }, null)</li>
+                                    <li id="lnkFeeDetail">@Html.ActionLink("Teaching Cost", "Index", "FeeDetail", new { Area = "Admin" }, null)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#news">News</a>
+                            </h4>
+                        </div>
+                        <div id="news" class="panel-collapse collapse admin-accordion">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a id="news" href="#">News</a></li>
+                                    <li><a id="termActivities" href="#">Term Activities</a></li>
+
+                                    @*<li><a id="news" href="#"><i class="fa fa-newspaper-o"></i>News</a></li>
+                                    <li><a id="termActivities" href="#"><i class="fa fa-cog"></i>Term Activities</a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#users">Users</a>
+                            </h4>
+                        </div>
+                        <div id="users" class="panel-collapse collapse admin-accordion">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a id="user" href="#">User</a></li>
+                                    <li><a id="rights" href="#">Rights</a></li>
+                                    <li><a id="roles" href="#">Roles</a></li>
+                                    <li><a id="assignRightToRole" href="#">Assign Right To Role</a></li>
+                                    <li><a id="assignRoleToUser" href="#">Assign Role To User</a></li>
+                                    <li><a id="resetPassword" href="#">Reset Password</a></li>
+
+                                    @*<li><a id="user" href="#"><i class="fa fa-user"></i>User</a></li>
+                                    <li><a id="rights" href="#"><i class="fa fa-tasks"></i>Rights</a></li>
+                                    <li><a id="roles" href="#"><i class="fa fa-group"></i>Roles</a></li>
+                                    <li><a id="assignRightToRole" href="#"><i class="fa fa-arrow-circle-o-right"></i>Assign Right To Role</a></li>
+                                    <li><a id="assignRoleToUser" href="#"><i class="fa fa-user-plus"></i>Assign Role To User</a></li>
+                                    <li><a id="resetPassword" href="#"><i class="fa fa-unlock-alt"></i>Reset Password</a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#sms">SMS</a>
+                            </h4>
+                        </div>
+                        <div id="sms" class="panel-collapse collapse admin-accordion">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a id="sendSms" href="#">Send SMS</a></li>
+                                    <li><a id="sendMail" href="#">Send Mail</a></li>
+
+                                    @*<li><a id="sendSms" href="#"><i class="fa fa-file-text-o"></i>Send SMS</a></li>
+                                    <li><a id="sendMail" href="#"><i class="fa fa-envelope"></i>Send Mail</a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="page-content">*@
+            <div class="col-md-9 ">
+                @*<div id="viewContainer">*@
+                    @RenderBody()
+                @*</div>*@
+            </div>
+        @*</div>*@
+
+    </div>
+
+</body>
+</html>

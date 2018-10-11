@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C4A0B5F-0785-4420-A48E-BF14A13B4171}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Odigo.Model</RootNamespace>
+    <AssemblyName>Odigo.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\BasicSetup.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\Email.cs" />
+    <Compile Include="Model\Employer.cs" />
+    <Compile Include="Model\EmployerDesiredTime.cs" />
+    <Compile Include="Model\EmployerStudentCategory.cs" />
+    <Compile Include="Model\EmployerType.cs" />
+    <Compile Include="Model\Lga.cs" />
+    <Compile Include="Model\ApplicationMessage.cs" />
+    <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\MessageType.cs" />
+    <Compile Include="Model\News.cs" />
+    <Compile Include="Model\Payment.cs" />
+    <Compile Include="Model\PaymentMode.cs" />
+    <Compile Include="Model\PaymentSlip.cs" />
+    <Compile Include="Model\Period.cs" />
+    <Compile Include="Model\LoginDetail.cs" />
+    <Compile Include="Model\PersonRight.cs" />
+    <Compile Include="Model\PersonRole.cs" />
+    <Compile Include="Model\QualificationCategory.cs" />
+    <Compile Include="Model\Rating.cs" />
+    <Compile Include="Model\Referee.cs" />
+    <Compile Include="Model\Occupation.cs" />
+    <Compile Include="Model\OLevelExamSitting.cs" />
+    <Compile Include="Model\OLevelGrade.cs" />
+    <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\RequestForEmploymentCostImplication.cs" />
+    <Compile Include="Model\RequestForEmploymentTeacherAvailability.cs" />
+    <Compile Include="Model\RequestStatus.cs" />
+    <Compile Include="Model\Right.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\RoleRight.cs" />
+    <Compile Include="Model\SchoolType.cs" />
+    <Compile Include="Model\SecurityQuestion.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\ServiceCharge.cs" />
+    <Compile Include="Model\Sms.cs" />
+    <Compile Include="Model\Subscription.cs" />
+    <Compile Include="Model\Teacher.cs" />
+    <Compile Include="Model\TeacherAvailability.cs" />
+    <Compile Include="Model\TeacherAvailabilityStatus.cs" />
+    <Compile Include="Model\TeacherAward.cs" />
+    <Compile Include="Model\TeacherEducationalQualification.cs" />
+    <Compile Include="Model\TeacherEmploymentHistory.cs" />
+    <Compile Include="Model\TeacherOLevelResult.cs" />
+    <Compile Include="Model\TeacherOLevelResultDetail.cs" />
+    <Compile Include="Model\OLevelSubject.cs" />
+    <Compile Include="Model\OLevelType.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\PersonType.cs" />
+    <Compile Include="Model\Qualification.cs" />
+    <Compile Include="Model\QuickLink.cs" />
+    <Compile Include="Model\Setup.cs" />
+    <Compile Include="Model\Sex.cs" />
+    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\StudentCategory.cs" />
+    <Compile Include="Model\TeacherStudentCategory.cs" />
+    <Compile Include="Model\TeacherType.cs" />
+    <Compile Include="Model\TeacherVerificationStatus.cs" />
+    <Compile Include="Model\TeachingCost.cs" />
+    <Compile Include="Model\Value.cs" />
+    <Compile Include="Model\WeekDay.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Translator\BaseTranslator.cs" />
+    <Compile Include="Translator\CountryTranslator.cs" />
+    <Compile Include="Translator\EmployerDesiredTimeTranslator.cs" />
+    <Compile Include="Translator\EmployerStudentCategoryTranslator.cs" />
+    <Compile Include="Translator\EmployerTranslator.cs" />
+    <Compile Include="Translator\LgaTranslator.cs" />
+    <Compile Include="Translator\MessageTranslator.cs" />
+    <Compile Include="Translator\MessageTypeTranslator.cs" />
+    <Compile Include="Translator\NewsTranslator.cs" />
+    <Compile Include="Translator\OccupationTranslator.cs" />
+    <Compile Include="Translator\OLevelTypeTranslator.cs" />
+    <Compile Include="Translator\PaymentModeTranslator.cs" />
+    <Compile Include="Translator\PaymentTranslator.cs" />
+    <Compile Include="Translator\PeriodTranslator.cs" />
+    <Compile Include="Translator\LoginDetailTranslator.cs" />
+    <Compile Include="Translator\QualificationCategoryTranslator.cs" />
+    <Compile Include="Translator\RatingTranslator.cs" />
+    <Compile Include="Translator\RefereeTranslator.cs" />
+    <Compile Include="Translator\OLevelExamSittingTranslator.cs" />
+    <Compile Include="Translator\OLevelGradeTranslator.cs" />
+    <Compile Include="Translator\RequestForEmploymentCostImplicationTranslator.cs" />
+    <Compile Include="Translator\RequestStatusTranslator.cs" />
+    <Compile Include="Translator\RequestForEmploymentTeacherAvailabilityTranslator.cs" />
+    <Compile Include="Translator\RequestTranslator.cs" />
+    <Compile Include="Translator\RightTranslator.cs" />
+    <Compile Include="Translator\RoleRightTranslator.cs" />
+    <Compile Include="Translator\RoleTranslator.cs" />
+    <Compile Include="Translator\SchoolTypeTranslator.cs" />
+    <Compile Include="Translator\SecurityQuestionTranslator.cs" />
+    <Compile Include="Translator\ServiceChargeTranslator.cs" />
+    <Compile Include="Translator\ServiceTranslator.cs" />
+    <Compile Include="Translator\TeacherAvailabilityStatusTranslator.cs" />
+    <Compile Include="Translator\TeacherAvailabilityTranslator.cs" />
+    <Compile Include="Translator\TeacherAwardTranslator.cs" />
+    <Compile Include="Translator\TeacherEducationalQualificationTranslator.cs" />
+    <Compile Include="Translator\TeacherEmploymentHistoryTranslator.cs" />
+    <Compile Include="Translator\TeacherOLevelResultDetailTranslator.cs" />
+    <Compile Include="Translator\TeacherOLevelResultTranslator.cs" />
+    <Compile Include="Translator\OLevelSubjectTranslator.cs" />
+    <Compile Include="Translator\PersonTranslator.cs" />
+    <Compile Include="Translator\PersonTypeTranslator.cs" />
+    <Compile Include="Translator\QualificationTranslator.cs" />
+    <Compile Include="Translator\QuickLinkTranslator.cs" />
+    <Compile Include="Translator\SexTranslator.cs" />
+    <Compile Include="Translator\StateTranslator.cs" />
+    <Compile Include="Translator\StudentCategoryTranslator.cs" />
+    <Compile Include="Translator\TeacherStudentCategoryTranslator.cs" />
+    <Compile Include="Translator\TeacherTranslator.cs" />
+    <Compile Include="Translator\TeacherTypeTranslator.cs" />
+    <Compile Include="Translator\TeacherVerificationStatusTranslator.cs" />
+    <Compile Include="Translator\TeachingCostTranslator.cs" />
+    <Compile Include="Translator\TranslatorFactory.cs" />
+    <Compile Include="Translator\WeekDayTranslator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Odigo.Entities\Odigo.Entities.csproj">
+      <Project>{b703be65-8c79-41fb-9153-a72e57984572}</Project>
+      <Name>Odigo.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

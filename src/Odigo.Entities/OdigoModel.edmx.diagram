@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="925f827aae9644dcaf9bf9b241fec535" Name="Diagram1">
+        <EntityTypeShape EntityType="OdigoModel.COUNTRY" Width="1.5" PointX="0.75" PointY="25.875" />
+        <EntityTypeShape EntityType="OdigoModel.EMPLOYER" Width="1.5" PointX="12.75" PointY="25.75" />
+        <EntityTypeShape EntityType="OdigoModel.EMPLOYER_DESIRED_TIME" Width="1.5" PointX="20.25" PointY="25.75" />
+        <EntityTypeShape EntityType="OdigoModel.EMPLOYER_STUDENT_CATEGORY" Width="1.5" PointX="18" PointY="25.5" />
+        <EntityTypeShape EntityType="OdigoModel.LGA" Width="1.5" PointX="5.25" PointY="25.875" />
+        <EntityTypeShape EntityType="OdigoModel.MESSAGE" Width="1.5" PointX="7.5" PointY="30.625" />
+        <EntityTypeShape EntityType="OdigoModel.MESSAGE_TYPE" Width="1.5" PointX="5.25" PointY="30.875" />
+        <EntityTypeShape EntityType="OdigoModel.NEWS" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OdigoModel.O_LEVEL_EXAM_SITTING" Width="1.5" PointX="15.75" PointY="55.5" />
+        <EntityTypeShape EntityType="OdigoModel.O_LEVEL_GRADE" Width="1.5" PointX="18" PointY="38.75" />
+        <EntityTypeShape EntityType="OdigoModel.O_LEVEL_SUBJECT" Width="1.5" PointX="18" PointY="41.25" />
+        <EntityTypeShape EntityType="OdigoModel.O_LEVEL_TYPE" Width="1.5" PointX="15.75" PointY="8.75" />
+        <EntityTypeShape EntityType="OdigoModel.OCCUPATION" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT" Width="1.5" PointX="12.75" PointY="21.125" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT_CHANNEL" Width="1.5" PointX="12.75" PointY="18" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT_INTERSWITCH_TRANSACTION" Width="1.5" PointX="17.25" PointY="20.125" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT_MODE" Width="1.5" PointX="10.5" PointY="17" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT_TERMINAL" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT_TRANSACTION_STATUS" Width="1.5" PointX="15" PointY="19.125" />
+        <EntityTypeShape EntityType="OdigoModel.PAYMENT_WEB" Width="1.5" PointX="15" PointY="21.75" />
+        <EntityTypeShape EntityType="OdigoModel.PERIOD" Width="1.5" PointX="15.75" PointY="52.625" />
+        <EntityTypeShape EntityType="OdigoModel.PERSON" Width="1.5" PointX="7.5" PointY="24.25" />
+        <EntityTypeShape EntityType="OdigoModel.PERSON_LOGIN" Width="1.5" PointX="9.75" PointY="25.125" />
+        <EntityTypeShape EntityType="OdigoModel.PERSON_TYPE" Width="1.5" PointX="5.25" PointY="23" />
+        <EntityTypeShape EntityType="OdigoModel.QUALIFICATION" Width="1.5" PointX="12.75" PointY="41.625" />
+        <EntityTypeShape EntityType="OdigoModel.QUALIFICATION_CATEGORY" Width="1.5" PointX="18" PointY="16.25" />
+        <EntityTypeShape EntityType="OdigoModel.QUICK_LINK" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OdigoModel.RATING" Width="1.5" PointX="10.5" PointY="38.625" />
+        <EntityTypeShape EntityType="OdigoModel.REQUEST" Width="1.5" PointX="9.75" PointY="19.875" />
+        <EntityTypeShape EntityType="OdigoModel.REQUEST_FOR_EMPLOYMENT_COST_IMPLICATION" Width="1.5" PointX="20.25" PointY="22" />
+        <EntityTypeShape EntityType="OdigoModel.REQUEST_FOR_EMPLOYMENT_TEACHER_AVAILABILITY" Width="1.5" PointX="22.5" PointY="28.5" />
+        <EntityTypeShape EntityType="OdigoModel.REQUEST_STATUS" Width="1.5" PointX="7.5" PointY="18" />
+        <EntityTypeShape EntityType="OdigoModel.RIGHT" Width="1.5" PointX="10.5" PointY="13.875" />
+        <EntityTypeShape EntityType="OdigoModel.ROLE" Width="1.5" PointX="7.5" PointY="20.75" />
+        <EntityTypeShape EntityType="OdigoModel.ROLE_RIGHT" Width="1.5" PointX="12.75" PointY="14.75" />
+        <EntityTypeShape EntityType="OdigoModel.SCHOOL_TYPE" Width="1.5" PointX="10.5" PointY="42" />
+        <EntityTypeShape EntityType="OdigoModel.SECURITY_QUESTION" Width="1.5" PointX="7.5" PointY="34.5" />
+        <EntityTypeShape EntityType="OdigoModel.SERVICE" Width="1.5" PointX="5.25" PointY="14.875" />
+        <EntityTypeShape EntityType="OdigoModel.SERVICE_CHARGE" Width="1.5" PointX="7.5" PointY="14.5" />
+        <EntityTypeShape EntityType="OdigoModel.SEX" Width="1.5" PointX="10.5" PointY="30" />
+        <EntityTypeShape EntityType="OdigoModel.STATE" Width="1.5" PointX="3" PointY="25.875" />
+        <EntityTypeShape EntityType="OdigoModel.STUDENT_CATEGORY" Width="1.5" PointX="15.75" PointY="15.5" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER" Width="1.5" PointX="12.75" PointY="29.125" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_AVAILABILITY" Width="1.5" PointX="18" PointY="34.5" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_AVAILABILITY_STATUS" Width="1.5" PointX="10.5" PointY="36" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_AWARD" Width="1.5" PointX="15" PointY="42.875" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_CURRENT_AVAILABILITY" Width="1.5" PointX="20.25" PointY="35.25" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_EDUCATIONAL_QUALIFICATION" Width="1.5" PointX="15" PointY="30.5" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_EMPLOYMENT_HISTORY" Width="1.5" PointX="15" PointY="48.75" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_O_LEVEL_RESULT" Width="1.5" PointX="18" PointY="30.5" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_O_LEVEL_RESULT_DETAIL" Width="1.5" PointX="20.25" PointY="30.75" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_REFEREE" Width="1.5" PointX="15" PointY="26.375" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_STUDENT_CATEGORY" Width="1.5" PointX="15" PointY="35" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_TYPE" Width="1.5" PointX="15.75" PointY="38.375" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_VERIFICATION_LOG" Width="1.5" PointX="15" PointY="45.875" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHER_VERIFICATION_STATUS" Width="1.5" PointX="10.5" PointY="33.5" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHING_COST" Width="1.5" PointX="20.25" PointY="15.75" />
+        <EntityTypeShape EntityType="OdigoModel.TEACHING_CURRENT_COST" Width="1.5" PointX="22.5" PointY="16.5" />
+        <EntityTypeShape EntityType="OdigoModel.WEEK_DAY" Width="1.5" PointX="15.75" PointY="11.875" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_COUNTRY" />
+        <AssociationConnector Association="OdigoModel.FK_STATE_COUNTRY" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_PERSON" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_SEX" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_STUDENT_CATEGORY_EMPLOYER" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_DESIRED_TIME_EMPLOYER_STUDENT_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_DESIRED_TIME_PERIOD" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_DESIRED_TIME_WEEK_DAY" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_STUDENT_CATEGORY_STUDENT_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_EMPLOYER_STUDENT_CATEGORY_TEACHER_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_FOR_EMPLOYMENT_COST_IMPLICATION_EMPLOYER_STUDENT_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_LOCAL_GOVERNMENT_STATE" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_LGA" />
+        <AssociationConnector Association="OdigoModel.FK_MESSAGE_MESSAGE_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_MESSAGE" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_MESSAGE1" />
+        <AssociationConnector Association="OdigoModel.FK_STUDENT_O_LEVEL_RESULT_O_LEVEL_EXAM_SITTING" />
+        <AssociationConnector Association="OdigoModel.FK_STUDENT_O_LEVEL_RESULT_DETAIL_O_LEVEL_GRADE" />
+        <AssociationConnector Association="OdigoModel.FK_APPLICANT_O_LEVEL_RESULT_DETAIL_O_LEVEL_SUBJECT" />
+        <AssociationConnector Association="OdigoModel.FK_STUDENT_O_LEVEL_RESULT_O_LEVEL_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_ONLINE_PAYMENT" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_PAYMENT_MODE" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_PERSON" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_SERVICE_CHARGE" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_ONLINE_PAYMENT_CHANNEL" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_INTERSWITCH_TRANSACTION_PAYMENT_TRANSACTION_STATUS" />
+        <AssociationConnector Association="OdigoModel.FK_PAYMENT_INTERSWITCH_TRANSACTION_PAYMENT_WEB" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_AVAILABILITY_PERIOD" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_LOGIN_DETAIL_PERSON" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_PERSON_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_STATE" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_PERSON" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_PERSON1" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_PERSON" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_LOGIN_DETAIL_SECURITY_QUESTION" />
+        <AssociationConnector Association="OdigoModel.FK_PERSON_LOGIN_ROLE" />
+        <AssociationConnector Association="OdigoModel.FK_QUALIFICATION_QUALIFICATION_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_QUALIFICATION_SCHOOL_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_EDUCATION_HISTORY_QUALIFICATION" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHING_COST_QUALIFICATION_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_RATING" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_FOR_EMPLOYMENT_COST_IMPLICATION_REQUEST" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_REQUEST_STATUS" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_SERVICE_CHARGE" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_FOR_EMPLOYMENT_TEACHER_AVAILABILITY_REQUEST_FOR_EMPLOYMENT_COST_IMPLICATION" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_FOR_EMPLOYMENT_TEACHER_AVAILABILITY_TEACHER_AVAILABILITY" />
+        <AssociationConnector Association="OdigoModel.FK_REQUEST_FOR_EMPLOYMENT_TEACHER_AVAILABILITY_TEACHING_COST" />
+        <AssociationConnector Association="OdigoModel.FK_ROLE_RIGHT_RIGHT1" />
+        <AssociationConnector Association="OdigoModel.FK_ROLE_RIGHT_ROLE" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_EDUCATION_QUALIFICATION_SCHOOL_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_SERVICE_CHARGE_SERVICE" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_SEX" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_STUDENT_CATEGORY_STUDENT_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHING_COST_STUDENT_CATEGORY" />
+        <AssociationConnector Association="OdigoModel.FK_REFEREE_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_AVAILABILITY_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_AWARD_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_EDUCATION_HISTORY_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_EMPLOYMENT_HISTORY_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_O_LEVEL_RESULT_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_STUDENT_CATEGORY_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_TEACHER_AVAILABILITY_STATUS" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_TEACHER_TYPE" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_VERIFICATION_LOG_TEACHER" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_VERIFICATION_STATUS" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_AVAILABILITY_WEEK_DAY" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHER_CURRENT_AVAILABILITY_TEACHER_AVAILABILITY" />
+        <AssociationConnector Association="OdigoModel.FK_STUDENT_O_LEVEL_RESULT_DETAIL_STUDENT_O_LEVEL_RESULT" />
+        <AssociationConnector Association="OdigoModel.FK_TEACHING_CURRENT_COST_TEACHING_COST" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

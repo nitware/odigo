@@ -1,0 +1,318 @@
+﻿@model Odigo.Web.Models.BaseSearchViewModel
+@using Odigo.Model.Model
+
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .side-list tr:first-child td:nth-child(1) {
+        border-top: none;
+        padding-top: 17px;
+    }
+
+    .tab-content-closed {
+        margin-bottom: 15px;
+        padding: 0;
+        border-right: solid 1px gainsboro;
+        border-bottom: solid 1px gainsboro;
+        border-left: solid 1px gainsboro;
+    }
+
+    .tab-pane-closed {
+        font-size: 14px;
+        margin: 0 15px 15px 15px;
+    }
+
+    .tab-pane-content-closed {
+        padding: 15px 15px 0 15px;
+    }
+
+
+
+
+    /*.nav-tabs{
+  background-color:#161616;
+}
+.tab-content{
+    background-color:#303136;
+    color:#fff;
+    padding:5px
+}
+.nav-tabs > li > a{
+  border: medium none;
+}
+.nav-tabs > li > a:hover {
+  background-color: #303136 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+}
+.nav-tabs > li > a:active {
+  background-color: #303136 !important;
+    border: medium none;
+    border-radius: 0;
+    color:red !important;
+}*/
+
+
+    .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus{
+            /*color: #555555;*/
+
+            color: #ffffff;
+            background-color: #97b6d2; 
+            /*opacity:0.4;*/ 
+        } 
+    #tabContent{
+        background-color:#97b6d2;
+        /*opacity:0.5;*/ 
+    }
+</style>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tbLVT').dataTable();
+
+            $('#btnSearch').click(function () {
+
+                var url;
+                var input;
+                var teacherTypeId = $("#TeacherType_Id").val();
+                var studentCategoryId = $("#StudentCategory_Id").val();
+                var qualificationId = $("#Qualification_Id").val();
+                var locationId = $("#State_Id").val();
+
+                if ((teacherTypeId == "" || teacherTypeId == null) && (studentCategoryId == "" || studentCategoryId == null) && (qualificationId == "" || qualificationId == null) && (locationId == "" || locationId == null)) {
+                    alert("No search criteria selected! You must select at least one");
+                    return;
+                }
+
+                @*if ((teacherTypeId != "" || teacherTypeId != null) && (studentCategoryId == "" || studentCategoryId == null) && (qualificationId == "" || qualificationId == null) && (locationId == "" || locationId == null)) {
+                    input = { ttid: teacherTypeId };
+                    url = '@Url.Action("FindTeacherByTeacherType")';
+                }
+                else if ((teacherTypeId == "" || teacherTypeId == null) && (studentCategoryId != "" || studentCategoryId != null) && (qualificationId == "" || qualificationId == null) && (locationId == "" || locationId == null)) {
+                    input = { scid: studentCategoryId };
+                    url = '@Url.Action("FindTeacherByChildcategory")';
+                }
+                else if ((teacherTypeId == "" || teacherTypeId == null) && (studentCategoryId == "" || studentCategoryId == null) && (qualificationId != "" || qualificationId != null) && (locationId == "" || locationId == null)) {
+                    input = { qid: qualificationId };
+                    url = '@Url.Action("FindTeacherByQualification")';
+                }
+                else if ((teacherTypeId == "" || teacherTypeId == null) && (studentCategoryId == "" || studentCategoryId == null) && (qualificationId == "" || qualificationId == null) && (locationId != "" || locationId != null)) {
+                    input = { lid: locationId };
+                    url = '@Url.Action("FindTeacherByLocation")';
+                }*@
+
+
+                FindTeacherAsync();
+
+                //return false;
+            });
+
+            
+            function FindTeacherAsync() {
+              
+                $.ajax({
+                    //type: "POST",
+                    type: "GET",
+                    url: '@Url.Action("FindTeacherBy", "Search", new { Area = "Common"})',
+                    data: $("#frmResult").serialize(),
+
+                    beforeSend: function () {
+                        $("#busy").show();
+                    },
+                    complete: function () {
+                        $("#busy").hide();
+                    },
+                    success: function (result) {
+                       
+                        $("#dvTeachers").html(result);
+                        var noOfTeachers = $("#tbLVT tr").length - 1;
+
+                        if (noOfTeachers > 1) {
+                            $("#spHeading").text(noOfTeachers + " Teachers found");
+                        }
+                        else if (noOfTeachers == 1) {
+                            $("#spHeading").text(noOfTeachers + " Teacher found");
+                        }
+                        else {
+                            $("#spHeading").text("No teacher found");
+                        }
+
+                        $('#tbLVT').dataTable();
+                    },
+                    error: function () {
+                        alert("Operation failed!");
+                    },
+                });
+            }
+
+
+           
+
+
+
+
+
+
+        })
+    </script>
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+
+               
+
+                <div>
+                    <ul class="nav nav-tabs responsive " id="sideTab" >
+
+                        <li id="tab1" class="test-class active"><a class="deco-none" href="#step1" data-toggle="tab"> <div style="font-family:Arial; font-size:30px; margin:0 5px"><span class="step">Find Teacher</span></div></a></li>
+                        @*<li id="tab2" style="vertical-align:bottom; background-color:red;color:white; margin:10px 5px">
+                            <span id="busy" >
+                                <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                                Please wait ...
+                            </span>
+                        </li>*@
+
+                        @*<li id="tab1" class="test-class active" ><a class="deco-none" href="#step1" data-toggle="tab"> <div style="font-size:24px; font-weight:bold "><span class="step">Find Teacher</span></div></a></li>*@
+                        
+    @*<li id="tab2"><a class="deco-none" href="#step2" data-toggle="tab"><span class="step">Child Category</span></a></li>
+                        <li id="tab3"><a class="deco-none misc-class" href="#step3" data-toggle="tab"><span class="step">Qualification</span></a></li>
+                        <li id="tab4"><a class="deco-none misc-class" href="#step4" data-toggle="tab"><span class="step">Location</span></a></li>
+                        <li id="tab5"><a class="deco-none misc-class" href="#step5" data-toggle="tab"><span class="step">Type</span></a></li>*@
+                    </ul>
+
+                    <div id="tabContent" class="tab-content responsive tab-content-closed" >
+                        <div class="tab-pane active tab-pane-closed" id="step1">
+                            <div class="row tab-pane-content-closed" style="opacity:1 !important">
+                                @using (Html.BeginForm("Result", "Search", FormMethod.Post, new { id = "frmResult" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+                                    if (ViewBag.TeacherTypes != null && ViewBag.StudentCategories != null && ViewBag.Qualifications != null && ViewBag.States != null)
+                                    {
+                                        <div class="form-inline">
+                                            <div class="form-group">
+                                                @Html.DropDownListFor(model => model.TeacherType.Id, (IEnumerable<SelectListItem>)ViewBag.TeacherTypes, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.TeacherType.Id, null, new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.DropDownListFor(model => model.StudentCategory.Id, (IEnumerable<SelectListItem>)ViewBag.StudentCategories, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.StudentCategory.Id, null, new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.DropDownListFor(model => model.Qualification.Id, (IEnumerable<SelectListItem>)ViewBag.Qualifications, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Qualification.Id, null, new { @class = "text-danger" })
+                                            </div>
+
+                                            @Html.DropDownListFor(model => model.State.Id, (IEnumerable<SelectListItem>)ViewBag.States, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.State.Id, null, new { @class = "text-danger" })
+
+                                            <button class="btn btn-primary mr5" type="button" name="search" id="btnSearch"><i class="fa fa-search mr5"></i> Find</button>
+                                            <span id="busy" style="display:none; color:white ">
+                                                <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                                                Please wait ...
+                                            </span>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (TempData["Message"] != null)
+                                        {
+                                            @*<br />*@
+                                            @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                                        }
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div style="font-size:34px; font-weight:bold; ">Searched Result</div>*@
+@*<hr style="margin-top:0" />*@
+
+<div id="tblHeading">
+    <div class="page-header">
+        <h2>
+            <span id="spHeading">
+                @if (Model != null && Model.Teachers != null && Model.Teachers.Count > 0)
+                {
+                    if (Model.Teachers.Count > 1)
+                    {
+                        @Model.Teachers.Count <span>Teachers found</span>
+                    }
+                    else
+                    {
+                        @Model.Teachers.Count <span>Teacher found</span>
+                    }
+                }
+                else
+                {
+                    <span>No record found!</span>
+                }
+            </span>
+        </h2>
+    </div>
+</div>
+
+
+    <div class="row">
+    <div class="col-md-9">
+        <div id="dvTeachers">
+            @if (Model != null && Model.Teachers != null && Model.Teachers.Count > 0)
+            {
+                @Html.Partial("_Teachers", Model.Teachers)
+            }
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item active">
+                <h4 class="list-group-item-heading"><i class="fa fa-filter"></i> Filter</h4>
+                <p class="list-group-item-text">You can futher filter your result set from here</p>
+            </li>
+
+            <li class="list-group-item">
+                <div>Kindly click on the appropriate column header to sort the result set by that column</div>
+            </li>
+            <li class="list-group-item">Deleted</li>
+            <li class="list-group-item">Warnings</li>
+        </ul>
+    </div>
+
+
+</div>
+
+<br />
+
+

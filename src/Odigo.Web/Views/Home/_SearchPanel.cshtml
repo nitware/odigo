@@ -1,0 +1,160 @@
+﻿@model Odigo.Web.Models.BaseSearchViewModel
+@using Odigo.Model.Model;
+
+<div>
+    @using (Html.BeginForm("GetTeacherBy", "Home", FormMethod.Post, new { id = "frmSearch" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        if (ViewBag.TeacherTypes != null && ViewBag.StudentCategories != null && ViewBag.Qualifications != null && ViewBag.States != null)
+        {
+            <div class="col-md-6">
+                <div class="row">
+                    <div id="divDepartmentOption" class="form-group">
+                        @Html.DropDownListFor(model => model.TeacherType.Id, (IEnumerable<SelectListItem>)ViewBag.TeacherTypes, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TeacherType.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.StudentCategory.Id, (IEnumerable<SelectListItem>)ViewBag.StudentCategories, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StudentCategory.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.Qualification.Id, (IEnumerable<SelectListItem>)ViewBag.Qualifications, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Qualification.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="divJambNo" class="form-group">
+                        @Html.DropDownListFor(model => model.State.Id, (IEnumerable<SelectListItem>)ViewBag.States, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.State.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-lg mr5" type="button" name="search" id="btnSearch"><i class="fa fa-search mr5"></i> Find</button>
+
+                        <span id="busy" style="display:none;" class="loader">
+                            @*<img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />*@
+                            Please wait ...
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div style="font-family:'Century Gothic'; font-size:28px; height:250px ">
+                    Find teacher by <b>Work Mode</b>, <b>Child Category</b>, teacher's <b>Qualification</b> and <b>Location</b>
+                    <div style="margin-top:20px">
+                        <div style="color:silver; font-size:16px;">Make selection from the dropdown list, and click the <b>Search</b> button</div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        <br />
+                        @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                    }
+                </div>
+            </div>
+        }
+
+    }
+
+</div>
+
+
+
+
+
+
+
+
+@*<div>
+    @using (Html.BeginForm("GetTeacherBy", "Home", FormMethod.Post, new { id = "frmSearch" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        if (ViewBag.TeacherTypes != null && ViewBag.StudentCategories != null && ViewBag.Qualifications != null && ViewBag.States != null)
+        {
+            <div class="col-md-6">
+                <div class="row">
+                    <div id="divDepartmentOption" class="form-group">
+                        @Html.DropDownListFor(model => model.BaseSearchViewModel.TeacherType.Id, (IEnumerable<SelectListItem>)ViewBag.TeacherTypes, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BaseSearchViewModel.TeacherType.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.BaseSearchViewModel.StudentCategory.Id, (IEnumerable<SelectListItem>)ViewBag.StudentCategories, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BaseSearchViewModel.StudentCategory.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.BaseSearchViewModel.Qualification.Id, (IEnumerable<SelectListItem>)ViewBag.Qualifications, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BaseSearchViewModel.Qualification.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="divJambNo" class="form-group">
+                        @Html.DropDownListFor(model => model.BaseSearchViewModel.State.Id, (IEnumerable<SelectListItem>)ViewBag.States, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BaseSearchViewModel.State.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-lg mr5" type="button" name="search" id="btnSearch"><i class="fa fa-search mr5"></i> Find</button>
+
+                        <span id="busy" style="display:none;" class="loader">
+                            Please wait ...
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div style="font-family:'Century Gothic'; font-size:28px; height:250px ">
+                    Find teacher by <b>Work Mode</b>, <b>Child Category</b>, teacher's <b>Qualification</b> and <b>Location</b>
+                    <div style="margin-top:20px">
+                        <div style="color:silver; font-size:16px;">Make selection from the dropdown list, and click the <b>Search</b> button</div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        <br />
+                        @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                    }
+                </div>
+            </div>
+        }
+
+    }
+
+</div>*@

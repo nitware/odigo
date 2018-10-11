@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Application ::</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var page = window.location.pathname.toString().split("/").pop();
+
+            //alert(page.toLowerCase());
+
+            if (page.toLowerCase() == "news") {
+                //document.getElementById('lnkHome').className = "";
+                //document.getElementById('lnkAdmin').className = "";
+                //document.getElementById('lnkCost').className = "";
+                //document.getElementById('lnkNews').className = "active";
+
+                //alert("clicked!!");
+           
+                $("#lnkHome").removeClass("active");
+                $("#lnkAdmin").removeClass("active");
+                $("#lnkCost").removeClass("active");
+                $("#lnkNews").addClass("active");
+            }
+        })
+    </script>
+
+
+
+    @*<style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+            li a, .dropbtn {
+                display: inline-block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover, .dropdown:hover .dropbtn {
+                    background-color: red;
+                }
+
+            li.dropdown {
+                display: inline-block;
+            }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>*@
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+
+        @*<div style="height:80px;background:whitesmoke">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-danger">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    Place your adverts here
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>*@
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="http://www.odigo.com/" title="Home"><img class="app-logo img-thumbnail" src="@Url.Content("~/Content/Images/mmutaka_logo.png")" alt="" /></a>
+            </div>
+
+            @*<div >
+
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </li>
+                </ul>
+                
+                @Html.Partial("_LoginPartial")
+            </div>*@
+
+
+
+            <div id="qq" class="navbar-collapse collapse">
+               
+                <ul class="nav navbar-nav">
+                    <li id="lnkHome" class="active">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>*@
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+                            <li class="divider"></li>
+
+                            <li id="lnkAdmin">@Html.ActionLink("Basic Setup", "Index", "BasicSetup", new { Area = "Admin" }, null)</li>
+
+                            <li class="divider"></li>
+                        </ul>
+                    </li>
+
+                    <li id="lnkNews">@Html.ActionLink("News", "Index", "News", new { Area = "Common" }, null)</li>
+                    <li id="lnkCost">@Html.ActionLink("Pricing", "Cost", "Service", new { Area = "Common", ptid = "234" }, null)</li>
+                </ul>
+
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        @RenderBody()
+        <br />
+    </div>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-widget">
+                        <div class="widget-title"><h6><b>Quick Links</b></h6> </div>
+                        <div class="widget-about">
+                            <ul class="list">
+                                <li><a href="#">News &amp; Events </a></li>
+                                <li><a href="http://webmail.nitware.com.ng" target="_blank">To check your mail, <b>click here</b></a></li>
+                            </ul>
+
+                            <br />
+                            <div class="social-ul">
+                                <ul class="list">
+                                    <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li class="social-google"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-widget">
+                        <div class="widget-title"><h6><b>Get In Touch</b></h6></div>
+                        <div class="widget-about-2">
+                            <ul class="list">
+                                <li>
+                                    <i class="fa fa-map-marker"></i>
+                                    <div>2nd Floor, Valley View Plaza, 99 Opebi Road, Ikeja Lagos.</div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone"></i>
+                                    <div>Phone: 0803 530 3653, 0807 962 8259</div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <div>Email: info@nitware.com.ng</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-widget">
+                        <div class="widget-title"><h6><b>Newsletter </b></h6> </div>
+                        <div class="widget-posts">
+                            <ul class="list">
+                                <li><a href="#">Latest newsletter</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- End row -->
+
+    </footer>
+    <div id="footer-bottom">
+        @*<div class="container">
+                <div class="copyrights">&copy @DateTime.Now.Year Nitware Solutions Limited. All rights reserved</div>
+            </div>*@
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="copyrights">&copy @DateTime.Now.Year - All rights reserved.</div>
+                </div>
+                <div class="col-md-6">
+                    <p class="pull-right powered-by"><a href="http://www.nitware.com.ng">Powered by</a></p>
+
+                    @*<p class="pull-right powered-by"><a href="http://www.nitware.com.ng">Powered by <img src="@Url.Content("~/Content/Images/nitware_logo_small.png")" alt="" /></a></p>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div style="height:10px; background:red;"></div>*@
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

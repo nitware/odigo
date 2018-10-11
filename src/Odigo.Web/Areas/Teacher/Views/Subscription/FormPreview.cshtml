@@ -1,0 +1,936 @@
+﻿@model Odigo.Web.Areas.Teacher.Models.TeacherSubscriptionViewModel
+@using Odigo.Model.Model
+
+@{
+//Layout = null;
+//Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-override.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/Content/misc.css" rel="stylesheet" />*@
+
+@section JavaScript {
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#submit').attr('disabled', 'disabled');
+
+            $('#checkboxDefault').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#submit').removeAttr('disabled');
+                } else {
+
+                    $('#submit').attr('disabled', 'disabled');
+                }
+            });
+
+            $('#submit').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("FormPreview", "Subscription")',
+                    data: $("#frmForm").serialize(),
+
+                    beforeSend: function () {
+                        $("#busy").show();
+                    },
+                    complete: function () {
+                        $("#busy").hide();
+                    },
+                    success: function (result) {
+                        var jsonResult = $.parseJSON(result);
+
+                        if (jsonResult.isDone) {
+                            window.location.href = '@Url.Action("Slip", "Payment", new { Area = "Transaction"})';
+                        }
+                        else {
+                            alert(jsonResult.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Operation failed!");
+                    }
+                });
+
+                return false;
+            });
+
+
+
+
+        });
+
+    </script>
+}
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">
+        <center>
+            <h1><b>Subscription Form Preview</b></h1>
+            <p>Kindly fill all the fields provided in this form before clicking the Submit button</p>
+        </center>
+</div>
+    <div class="panel-body" >*@
+        <div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            @*<div class="panel-body" style="background-color:#fafafa; ">*@
+
+            <div class="panel-body" style="background-color:whitesmoke; ">
+                <div>
+                    @if (TempData["Message"] != null)
+            {
+                        @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                    }
+                </div>
+
+                @using (Html.BeginForm("FormPreview", "Subscription", FormMethod.Post, new { id = "frmForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <center>
+                        <div class="alert alert-info fade in nomargin">
+                            <h1><b>Subscription Form Preview</b></h1>
+                            <p>Kindly fill all the fields provided in this form before clicking the Submit button</p>
+                        </div>
+                    </center>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div style="font-size:x-large">Basic Information</div>
+
+                            @if (Model != null && Model.Teacher.Person != null)
+                {
+                                @Html.HiddenFor(model => model.Teacher.Person.Id)
+                                @Html.HiddenFor(model => model.Teacher.Person.FullName)
+                                @Html.HiddenFor(model => model.Teacher.Person.DateEntered)
+
+                                @Html.HiddenFor(model => model.Teacher.Person.Type.Id)
+                                @Html.HiddenFor(model => model.Teacher.Person.Country.Id)
+                                @Html.HiddenFor(model => model.Teacher.VerificationStatus.Id)
+                                @Html.HiddenFor(model => model.Teacher.AvailabilityStatus.Id)
+                                @Html.HiddenFor(model => model.Teacher.Rating)
+                                @Html.HiddenFor(model => model.Teacher.Person.IsBlacklisted)
+                            }
+
+                            @Html.HiddenFor(model => model.PersonAlreadyExist)
+
+                        </div>
+
+
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img src="@Url.Content('~' + Model.Teacher.ImageFileUrl)" alt="" style="max-width:150px" />
+                                    </div>
+                                </div>
+
+                                <br />
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.LastName, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.LastName)
+                                            @Html.DisplayFor(model => model.Teacher.Person.LastName)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.FirstName, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.FirstName)
+                                            @Html.DisplayFor(model => model.Teacher.Person.FirstName)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.OtherName, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.OtherName)
+                                            @Html.DisplayFor(model => model.Teacher.Person.OtherName)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Sex.Id, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Sex.Id)
+                                            @Html.DisplayFor(model => model.Teacher.Sex.Name)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.DateOfBirth, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.DateOfBirth)
+                                            @Html.DisplayFor(model => model.Teacher.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.MobilePhone, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.MobilePhone)
+                                            @Html.DisplayFor(model => model.Teacher.Person.MobilePhone)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.State.Id, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.State.Name)
+                                            @Html.DisplayFor(model => model.Teacher.Person.State.Name)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.Lga.Id, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.Lga.Name)
+                                            @Html.DisplayFor(model => model.Teacher.Person.Lga.Name)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.ContactAddress, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.ContactAddress)
+                                            @Html.DisplayFor(model => model.Teacher.Person.ContactAddress)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.Person.Email, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.Person.Email)
+                                            @Html.DisplayFor(model => model.Teacher.Person.Email)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.HomeTown, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.HomeTown)
+                                            @Html.DisplayFor(model => model.Teacher.HomeTown)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group margin-bottom-0">
+                                        <div class="col-md-4">
+                                            @Html.LabelFor(model => model.Teacher.HomeAddress, new { @class = "control-label " })
+                                        </div>
+                                        <div class="col-md-8 text-bold">
+                                            @Html.HiddenFor(model => model.Teacher.HomeAddress)
+                                            @Html.DisplayFor(model => model.Teacher.HomeAddress)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div style="font-size:x-large">Referee</div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed ">
+                                            <thead>
+                                                <tr class="well">
+                                                    <th class="well"></th>
+                                                    <th>
+                                                        Name
+                                                    </th>
+                                                    <th>
+                                                        Address
+                                                    </th>
+                                                    <th>
+                                                        Mobile Phone
+                                                    </th>
+                                                    <th>
+                                                        Email
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tr>
+                                                <td class="well"></td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.Referee.Name)
+                                                    @Html.DisplayFor(model => model.Referee.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.Referee.ContactAddress)
+                                                    @Html.DisplayFor(model => model.Referee.ContactAddress)
+                                                </td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.Referee.MobilePhone)
+                                                    @Html.DisplayFor(model => model.Referee.MobilePhone)
+                                                </td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.Referee.Email)
+                                                    @Html.DisplayFor(model => model.Referee.Email)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div style="font-size:x-large">Educational Qualification</div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <table class="table table-condensed table-responsive">
+                                        <thead>
+                                            <tr class="well">
+                                                <th class="well"></th>
+                                                <th>
+                                                    School Type
+                                                </th>
+                                                <th>
+                                                    School
+                                                </th>
+                                                <th>
+                                                    Qualification
+                                                </th>
+                                                <th>
+                                                    Admission Year
+                                                </th>
+                                                <th>
+                                                    Graduation Year
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        @for (int i = 0; i < Model.TeacherEducationalQualifications.Count; i++)
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(Model.TeacherEducationalQualifications[i].School))
+                                            {
+                                                <tr>
+                                                    <td class="well"></td>
+                                                    <td class="well">
+                                                        @Html.HiddenFor(model => model.TeacherEducationalQualifications[i].SchoolType.Id)
+                                                        @Html.DisplayFor(model => model.TeacherEducationalQualifications[i].SchoolType.Name)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEducationalQualifications[i].School)
+                                                        @Html.DisplayFor(model => model.TeacherEducationalQualifications[i].School)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEducationalQualifications[i].Qualification.Id)
+                                                        @Html.DisplayFor(model => model.TeacherEducationalQualifications[i].Qualification.Name)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEducationalQualifications[i].YearOfAdmission)
+                                                        @Html.DisplayFor(model => model.TeacherEducationalQualifications[i].YearOfAdmission)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEducationalQualifications[i].YearOfGraduation)
+                                                        @Html.DisplayFor(model => model.TeacherEducationalQualifications[i].YearOfGraduation)
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div style="font-size:x-large">O-Level Result</div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>First Sitting</h5>
+                                            <hr class="no-top-padding" />
+
+
+                                            <div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group margin-bottom-0">
+                                                            @Html.LabelFor(model => model.FirstSittingOLevelResult.Type.Id, "Type", new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-9 text-bold">
+                                                                @Html.HiddenFor(model => model.FirstSittingOLevelResult.Type.Id)
+                                                                @Html.DisplayFor(model => model.FirstSittingOLevelResult.Type.Name)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group margin-bottom-0">
+                                                            @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-9 text-bold">
+                                                                @Html.HiddenFor(model => model.FirstSittingOLevelResult.ExamNumber)
+                                                                @Html.DisplayFor(model => model.FirstSittingOLevelResult.ExamNumber)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group margin-bottom-0">
+                                                            @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-9 text-bold">
+                                                                @Html.HiddenFor(model => model.FirstSittingOLevelResult.ExamYear)
+                                                                @Html.DisplayFor(model => model.FirstSittingOLevelResult.ExamYear)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive">
+                                                <table class="table table-condensed">
+                                                    <thead>
+                                                        <tr class="well">
+                                                            <th></th>
+                                                            <th>
+                                                                Subject
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    @for (int i = 0; i < Model.FirstSittingOLevelResultDetails.Count; i++)
+                                                    {
+                                                        if (Model.FirstSittingOLevelResultDetails[i].Subject != null && Model.FirstSittingOLevelResultDetails[i].Subject.Id > 0 && Model.FirstSittingOLevelResultDetails[i].Grade != null && Model.FirstSittingOLevelResultDetails[i].Grade.Id > 0)
+                                                        {
+                                                            <tr>
+                                                                <td class="well"></td>
+                                                                <td>
+                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Id)
+                                                                    @Html.DisplayFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Name)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Id)
+                                                                    @Html.DisplayFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Name)
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <h5>Second Sitting</h5>
+                                            <hr class="no-top-padding" />
+
+                                            @if (Model.SecondSittingOLevelResult != null && !string.IsNullOrEmpty(Model.SecondSittingOLevelResult.ExamNumber) && Model.SecondSittingOLevelResult.ExamYear > 0)
+                                            {
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group margin-bottom-0">
+                                                                @Html.LabelFor(model => model.SecondSittingOLevelResult.Type.Id, "Type", new { @class = "control-label col-md-3" })
+                                                                <div class="col-md-9 text-bold">
+                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResult.Type.Id)
+                                                                    @Html.DisplayFor(model => model.SecondSittingOLevelResult.Type.Name)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group margin-bottom-0">
+                                                                @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "control-label col-md-3" })
+                                                                <div class="col-md-9 text-bold">
+                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResult.ExamNumber)
+                                                                    @Html.DisplayFor(model => model.SecondSittingOLevelResult.ExamNumber)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group margin-bottom-0">
+                                                                @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "control-label col-md-3" })
+                                                                <div class="col-md-9 text-bold">
+                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResult.ExamYear)
+                                                                    @Html.DisplayFor(model => model.SecondSittingOLevelResult.ExamYear)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-condensed">
+                                                        <thead>
+                                                            <tr class="well">
+                                                                <th></th>
+                                                                <th>
+                                                                    Subject
+                                                                </th>
+                                                                <th>
+                                                                    Grade
+                                                                </th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        @for (int i = 0; i < Model.SecondSittingOLevelResultDetails.Count; i++)
+                                                        {
+                                                            if (Model.SecondSittingOLevelResultDetails[i].Subject != null && Model.SecondSittingOLevelResultDetails[i].Subject.Id > 0 && Model.SecondSittingOLevelResultDetails[i].Grade != null && Model.SecondSittingOLevelResultDetails[i].Grade.Id > 0)
+                                                            {
+                                                                <tr>
+                                                                    <td class="well"></td>
+                                                                    <td>
+                                                                        @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Id)
+                                                                        @Html.DisplayFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Name)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Id)
+                                                                        @Html.DisplayFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Name)
+                                                                    </td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </table>
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                    if (Model.EmploymentHistoryExist)
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div style="font-size:x-large">Employment History</div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed ">
+                                        <thead>
+                                            <tr class="well">
+                                                <th></th>
+                                                <th>
+                                                    Employer
+                                                </th>
+                                                <th>
+                                                    Last Held Position
+                                                </th>
+                                                <th>
+                                                    Start Year
+                                                </th>
+                                                <th>
+                                                    End Year
+                                                </th>
+
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        @for (int i = 0; i < Model.TeacherEmploymentHistories.Count; i++)
+                    {
+                        if (!string.IsNullOrWhiteSpace(Model.TeacherEmploymentHistories[i].Employer))
+                        {
+                                                <tr>
+                                                    <td class="well"></td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEmploymentHistories[i].Employer)
+                                                        @Html.DisplayFor(model => model.TeacherEmploymentHistories[i].Employer)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEmploymentHistories[i].LastPositionHeld)
+                                                        @Html.DisplayFor(model => model.TeacherEmploymentHistories[i].LastPositionHeld)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEmploymentHistories[i].StartYear)
+                                                        @Html.DisplayFor(model => model.TeacherEmploymentHistories[i].StartYear)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(model => model.TeacherEmploymentHistories[i].EndYear)
+                                                        @Html.DisplayFor(model => model.TeacherEmploymentHistories[i].EndYear)
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+
+
+                    if (Model.AwardExist)
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div style="font-size:x-large">Awards, If Any</div>
+                            </div>
+                            <div class="panel-body">
+
+                                <table class="table table-condensed table-responsive">
+                                    <thead>
+                                        <tr class="well">
+                                            <th></th>
+                                            <th>
+                                                Award Body
+                                            </th>
+                                            <th>
+                                                Award Name
+                                            </th>
+                                            <th>
+                                                Year Awarded
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    @for (int i = 0; i < Model.TeacherAwards.Count; i++)
+                    {
+                        if (!string.IsNullOrWhiteSpace(Model.TeacherAwards[i].AwardBody))
+                        {
+                                            <tr>
+                                                <td class="well"></td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.TeacherAwards[i].AwardBody)
+                                                    @Html.DisplayFor(model => model.TeacherAwards[i].AwardBody)
+                                                </td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.TeacherAwards[i].AwardName)
+                                                    @Html.DisplayFor(model => model.TeacherAwards[i].AwardName)
+                                                </td>
+                                                <td>
+                                                    @Html.HiddenFor(model => model.TeacherAwards[i].YearAwarded)
+                                                    @Html.DisplayFor(model => model.TeacherAwards[i].YearAwarded)
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+
+                            </div>
+                        </div>
+                    }
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div style="font-size:x-large">Student Category</div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                @*<div class="col-md-12">*@
+                                @*<div class="form-group">*@
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Teacher.Type.Id, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 text-bold">
+                                    @Html.DisplayFor(model => model.Teacher.Type.Name)
+                                    @Html.HiddenFor(model => model.Teacher.Type.Id)
+                                </div>
+                                @*</div>*@
+                                @*</div>*@
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-primary">
+                                        Selected student category
+                                    </div>
+                                    <div class="table-responsive ">
+                                        <div style="vertical-align:middle; ">
+
+                                            <table class="table ">
+                                                <tr>
+                                                    @for (int i = 0; i < Model.TeacherStudentCategories.Count; i++)
+                                                    {
+                                                        <td>
+                                                            @if (Model.TeacherStudentCategories[i].IsSelected)
+                                                            {
+                                                                <div>
+                                                                    <img src="@Url.Content("~/Content/Images/success.png")" height="20" alt="" />
+
+                                                                    @Html.HiddenFor(model => model.TeacherStudentCategories[i].Id)
+                                                                    @Html.HiddenFor(model => model.TeacherStudentCategories[i].StudentCategory.Id)
+                                                                    @Html.HiddenFor(model => model.TeacherStudentCategories[i].StudentCategory.Name)
+
+                                                                    @Html.DisplayFor(model => model.TeacherStudentCategories[i].StudentCategory.Name)
+                                                                </div>
+                                                            }
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div style="font-size:x-large">Time To Be Available</div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-primary">
+                                Selected time are in green and red otherwise
+                            </div>
+                            <table class="table table-condensed table-responsive">
+                                @{
+                                    int k = 0;
+
+                                    for (int i = 0; i < Model.Periods.Count; i++)
+                                    {
+                                        <thead>
+                                            <tr>
+                                                @for (int j = 0; j < Model.WeekDays.Count; j++)
+                                                {
+                                                    if (i == 0 || j == 0)
+                                                    {
+                                                        <th class="well">
+                                                            <div style="text-align:center;">
+                                                                @Html.DisplayFor(model => model.WeekDays[j].Name)
+                                                            </div>
+                                                            @Html.DisplayFor(model => model.Periods[i].Name)
+                                                        </th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align:center">
+                                                            @if (Model.TeacherAvailabilities[k].IsAvailable)
+                                                            {
+                                                                @Html.HiddenFor(model => model.TeacherAvailabilities[k].Period.Id)
+                                                                @Html.HiddenFor(model => model.TeacherAvailabilities[k].WeekDay.Id)
+
+                                                                <img src="@Url.Content("~/Content/Images/success.png")" height="20" alt="" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="@Url.Content("~/Content/Images/error.png")" height="20" alt="" />
+                                                            }
+
+                                                            @{
+                                                                k = k + 1;
+                                                            }
+                                                        </td>
+                                                                    }
+                                                                }
+                                            </tr>
+                                        </thead>
+                                                                }
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+
+                                                                if (Model.Teacher.Person != null && Model.Teacher.Person.Id <= 0)
+                                                                {
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading">
+                                                                            <div style="font-size:x-large">Login Credentials</div>
+                                                                        </div>
+                                                                        <div class="panel-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-condensed ">
+                                                                                    <thead>
+                                                                                        <tr class="well">
+                                                                                            <th></th>
+                                                                                            <th>
+                                                                                                Username
+                                                                                            </th>
+                                                                                            <th>
+                                                                                                Security Question
+                                                                                            </th>
+                                                                                            <th>
+                                                                                                Security Answer
+                                                                                            </th>
+                                                                                            <th></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tr>
+                                                                                        <td class="well"></td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(model => model.Teacher.Person.Email)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.HiddenFor(model => model.Teacher.LoginDetail.SecurityQuestion.Id)
+                                                                                            @Html.DisplayFor(model => model.Teacher.LoginDetail.SecurityQuestion.Question)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.HiddenFor(model => model.Teacher.LoginDetail.SecurityAnswer)
+                                                                                            @Html.DisplayFor(model => model.Teacher.LoginDetail.SecurityAnswer)
+                                                                                        </td>
+                                                                                        <td></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+
+
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading">
+                                                                        <div style="font-size:x-large">Declaration</div>
+                                                                    </div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <blockquote>
+                                                                                    <i class="fa fa-quote-left"></i>
+                                                                                    <p>
+                                                                                        I hereby acknowledge by ticking this check box below, that if it is discovered at any time that I do not possess any of the qualifications which I claim
+                                                                                        I have obtained, I will be blacklisted from the system.
+                                                                                    </p>
+                                                                                </blockquote>
+
+                                                                                <div class="ckbox ckbox-default">
+                                                                                    <input type="checkbox" id="checkboxDefault" />
+                                                                                    <label for="checkboxDefault"><b style="font-size:13pt">I Agree</b></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                        <div class="form-actions no-color">
+                                                                            <button class="btn btn-primary btn-lg" type="button" name="submit" id="submit"><i class="fa fa-save mr5"></i> Submit</button>
+                                                                            <a href="@Url.Action("Form", "Subscription", new { area = "Teacher" })" class="btn btn-white btn-lg mr5">
+                                                                                <i class="fa fa-angle-double-left "></i>
+                                                                                <span>Back to Form</span>
+                                                                            </a>
+
+                                                                            <span id="busy" style="display:none; ">
+                                                                                <img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />
+                                                                                Processing ...
+                                                                            </span>
+
+                                                                            @*@Html.ActionLink("<< Back to Form", "Form", null, new { @class = "btn btn-white btn-lg mr5" })*@
+                                                                            @*@Html.ActionLink("<< Back to Form", "Form", null, new { pid = Model.Teacher.Person.Id }, new { @class = "btn btn-white btn-lg mr5" })*@
+                                                                            @*<div id="busy" style="display:none">Processing ...</div>*@
+                                                                        </div>
+
+                                                                        <div>
+                                                                            @if (TempData["Message"] != null)
+                                                                            {
+                                                                                <br />
+                                                                                @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+                                                                            }
+                                                                        </div>
+
+                                                                }
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

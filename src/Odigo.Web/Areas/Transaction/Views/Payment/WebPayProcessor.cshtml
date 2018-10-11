@@ -1,0 +1,514 @@
+﻿@using Odigo.Web.Areas.Pupil.ViewModels
+@model PaymentViewModel
+
+@{
+    Layout = "~/Views/Shared/_PlainLayout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://webpay.interswitchng.com/paydirect/webpay/pay.aspx -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://webpay.interswitchng.com/paydirect/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale = 1, maximum-scale=1, user-scalable=no">
+    <title>WebPAY - Nitware Solutions</title>
+
+    <link href="~/Content/webpay/webpay.css" rel="stylesheet" />
+    
+    @*<script src="./WebPAY - Goldoasis Web Solutions_files/jquery"></script>
+    <script src="./WebPAY - Goldoasis Web Solutions_files/common"></script>
+    <script src="./WebPAY - Goldoasis Web Solutions_files/watermark"></script>
+    <script src="./WebPAY - Goldoasis Web Solutions_files/close-browser"></script>*@
+    
+</head>
+<body>
+
+    @*<div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">*@
+            @*<div class="panel panel-default">
+                <div class="panel-body">*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+   
+
+                    <div id="outer-frame">
+                        <div id="page-header">
+                            <div id="account-header">
+                            </div>
+                        </div>
+
+
+
+                        <!--page logo header starts-->
+                        <div id="page-logo-header" class="">
+                            <div id="page-logo-header-content">
+                                <img src="~/Content/Images/webpay/webpay.png" id="db-logo" alt="isw">
+                                <div id="page-title-header" class="">
+                                    <div class="merchant_name" style="display: ">
+                                        Nmutaka
+                                    </div>
+                                    <div style="height: 7px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tag">
+                                <span>
+                                    @Html.DisplayFor(model => model.Student.FullName) - 19119
+
+                                    @*Daniel Egenti - 19119*@
+                                    &nbsp;<span id="loggedinusername">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <!--page logo header ends-->
+
+
+
+
+
+                        <!--page logo header starts-->
+                        @*<div id="page-logo-header" >
+                           
+                            <div id="page-logo-header-content" >
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="~/Content/Images/webpay/webpay.png" id="db-logo" alt="isw">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="page-title-header" >
+                                            <div class="merchant_name" >
+                                                Nitware Solutions Limited
+                                            </div>
+                                            <div style="height: 7px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="tag" >
+                                    <span >
+                                        
+                                            Daniel Egenti - 19119
+                                            &nbsp;<span id="loggedinusername">
+
+                                            </span>
+                                       
+                                    </span>
+                                </div>
+                            </div>
+                        </div>*@
+                        <!--page logo header ends-->
+
+
+                        <div></div>
+                        <div id="_msg" style="position: relative"></div>
+                        @*<div style="padding-right: 10px; text-align: right;" id="aborttransaction">
+                                <form action="https://webpay.interswitchng.com/paydirect/webpay/Abort" method="post">
+                                    <input type="submit" id="returntomerchantsite" class="btn btn-danger" value="Return to merchant site" name="returntomerchantsite" style="display: none;">
+                                    <a href="https://webpay.interswitchng.com/paydirect/webpay/pay.aspx#" onclick="return Cancel_Click();" id="returnlink" tabindex="8">Return to merchant site</a>
+                                    <input id="__wdx_ysfdr_xpl" name="__wdx_ysfdr_xpl" type="hidden" value=""><input id="__wrx_yux_frd_xlp" name="__wrx_yux_frd_xlp" type="hidden" value="L3BheWRpcmVjdC9QYXkvUmVzcG9uc2VQb3N0Lz9yZXNwPVoxJmRlc2M9KFNlc3Npb24gTG9zdC9UaW1lIE91dCkmdHhuUmVmPTE5MDY0MTE0NjE4OTM0MjgmcGF5UmVmPSZyZXRSZWY9JmNhcmROdW09MCZhcHByQW10PTAmYW10PTYwMDAwMCZ1cmw9aHR0cHMlM2ElMmYlMmZpYmFuay5ndGJhbmsuY29tJTJmR1RQYXklMmZSZXNwLmFzcHg=">
+                                </form>
+                            </div>*@
+                        <div id="payment-information">
+
+
+
+
+                            <!-- information fieldset start -->
+                            <form action="https://webpay.interswitchng.com/paydirect/webpay/processpayment" method="post">
+                                <div id="mainDiv">
+                                    <!-- information fieldset end -->
+                                    <div class="price_ish" >
+                                        <div class="course-ribbon green">
+                                            @*<b>₦ 6,000.00</b>*@
+
+                                            <b>₦ @Model.Payment.Amount.ToString("n")</b>
+                                        </div>
+                                    </div>
+                                   
+                                   
+
+                                    @*<fieldset class="two-col">
+                                        <p class="left dontshow">
+                                            <span class="exp">Amount:</span><br>
+                                            <span class="pay-details">₦ 6,000.00</span>
+                                        </p>
+                                    </fieldset>*@
+                                    <div id="cardtype_login" style="display: block;">
+                                        <div class="or" id="logindiv" style="display: none;">
+                                            <div style="left: -20px;position: relative;width: 101%;margin-top: -4%;font-size: 12px;color:#439b30" class="page_message_container_info" id="loginreason">
+                                                <div class="page_message_text_info" style="text-align: justify; width: 80%;">Skip entering your card details. Login to your eWallet to retrieve your cards. <i>Quickteller credentials also work</i></div>
+                                            </div>
+                                            <div id="loginpart">
+                                                <div>
+                                                    <div style="margin-bottom: 5px;">
+                                                        <input class="input_text watermark marked" autocomplete="off" id="username" name="username" placeholder="Email or Phone Number" title="Email or Phone Number" type="text" value="">
+                                                    </div>
+                                                    <div>
+                                                        <input class="input_text" autocomplete="off" id="password" name="password" placeholder="Password" title="Password" type="password" value="" style="display: none;"><input type="text" class="input_text watermark marked password" style="undefined" value="Password">
+                                                    </div>
+                                                </div>
+                                                <div id="buttonsDiv" style="padding-top: 10px; margin-right: auto; margin-left: auto;">
+                                                    <span style="margin-left: 2px;">
+                                                        <input type="button" style="vertical-align: initial;" class="btn btn-small btn-danger" name="login" id="login" value="Login" onclick="return webpay_login.Login();">
+                                                    </span>&nbsp;&nbsp;&nbsp; <span style="margin-left: 0px;" id="registerSpan"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <p>
+                                                <span id="ortext">OR</span>
+                                            </p>
+                                        </div>
+                                        
+                                        <div id="cardsSelectList" style="margin-bottom:5px">
+                                            <select class="selinput" id="cardtype" name="cardtype" onchange="webpay.ProcessCardTypeSelection($(this).val())" tabindex="1">
+                                                <option value="-1">- Select your card type -</option>
+                                                <option value="1|1|1|Card Number|0|Card PIN|1|0|||0|0">Verve™</option>
+                                                <option value="1|1|1|Card Number|0|Card PIN|1|0|||0|0">Freedom card</option>
+                                                <option value="1|1|1|Card Number|0|Card PIN|2|0|||0|0">MasterCard™ Naira Debit</option>
+                                                <option value="1|0|1|Card Number|0|Card PIN|3|0|||0|0">Visa</option>
+                                            </select>
+                                        </div>
+                                        <div id="qtinfo" style="display: block;">
+                                        </div>
+
+                                    </div>
+                                    <div id="cardImage" style="font-size: 10px; display: none;">
+                                        &nbsp;Please wait...
+                                        <img alt="loading" src="./WebPAY - Goldoasis Web Solutions_files/loading.gif">
+                                    </div>
+                                    <div id="rowMain" >
+                                        <div id="cardNumberDiv" >
+                                            <span class="exp" id="cnLabel">Card Number</span>
+                                            <br>
+                                            <input autocomplete="off" tabindex="2" class="form-control" name="pp_cardpan" id="pp_cardpan" maxlength="20" height="150" style="height:30px">
+                                            <input autocomplete="off" class="input_text" name="pp_cardpan_alternate" id="pp_cardpan_alternate" style="display: none;" tabindex="2" height="150">
+                                        </div>
+
+
+                                        @*<div id="slen" style="margin-top: -8px;">*@
+
+                                        <div id="slen" >
+                                            <div id="expDiv">
+
+
+                                                <div class="form-inline ">
+                                                    <div class="form-group ">
+                                                        <div>
+                                                            <span class="exp">Expiry Date</span><br>
+                                                        </div>
+
+                                                        @*<div id="divExpMonth">*@
+                                                        <select tabindex="4" name="pp_exp_month" class="selinput pp_exp_month" id="pp_exp_month">
+                                                            <option value="-">--</option>
+                                                            <option value="01">Jan</option>
+                                                            <option value="02">Feb</option>
+                                                            <option value="03">Mar</option>
+                                                            <option value="04">Apr</option>
+                                                            <option value="05">May</option>
+                                                            <option value="06">Jun</option>
+                                                            <option value="07">Jul</option>
+                                                            <option value="08">Aug</option>
+                                                            <option value="09">Sep</option>
+                                                            <option value="10">Oct</option>
+                                                            <option value="11">Nov</option>
+                                                            <option value="12">Dec</option>
+                                                        </select>
+                                                        @*</div>*@
+                                                        @*<div id="divExpYr">*@
+                                                        <select class="selinput" id="pp_exp_year" name="pp_exp_year" tabindex="5">
+                                                            <option value="-">--</option>
+                                                            <option value="2016">2016</option>
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2050">2050</option>
+                                                            <option value="2049">2049</option>
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <div>
+                                                            <span class="exp">CVV2</span> <span class="question">
+                                                                (What is cvv2?)
+                                                            </span>
+                                                        </div>
+                                                        
+                                                        <input type="password" autocomplete="off" id="txt_cvv2" name="txt_cvv2" class="form-control" tabindex="6" maxlength="3" style="height:30px">
+
+                                                        @*<input type="password" autocomplete="off" id="txt_cvv2" name="txt_cvv2" class="input_text" tabindex="6" maxlength="3">*@
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <br>
+                                        </div>
+                                        <div id="pp_name">
+                                            <span id="pp_pinpad_label" class="exp" style="text-transform: none;">Card PIN</span><br>
+                                        </div>
+                                        <div id="pp_pinpad_row">
+
+                                            <input tabindex="7" type="password" maxlength="4" class="input_text_pin" name="pp_pin" id="pp_pin" readonly="&quot;true&quot;"><br>
+                                            <div class="pinsecure">
+                                                <a href="javascript:pp_enter_text(0);">0</a> <a href="javascript:pp_enter_text(5);">5</a>
+                                                <a href="javascript:pp_enter_text(9);">9</a> <a href="javascript:pp_enter_text(8);">8</a>
+                                                <a href="javascript:pp_enter_text(3);">3</a> <a href="javascript:pp_enter_text(4);">4</a>
+                                                <a href="javascript:pp_enter_text(1);">1</a> <a href="javascript:pp_enter_text(6);">6</a>
+                                                <a href="javascript:pp_enter_text(7);">7</a> <a href="javascript:pp_enter_clearText();">
+                                                    Clr
+                                                </a> <a href="javascript:pp_enter_text(2);">2</a>
+                                                <a href="javascript:pp_enter_cancelText();">Del</a>
+                                            </div>
+                                        </div>
+                                        <div style="clear: both;">
+                                        </div>
+                                        <div class="subscribe" style="font-size:12px; font-weight:bold">
+                                            By clicking Pay, I have agreed to this service’s <a id="privacy_policy" href="https://webpay.interswitchng.com/paydirect/termsandconditions.htm" target="_blank" title="Opens in a new window">
+                                                Terms and Conditions
+                                            </a>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div>
+                                        <input type="hidden" name="data" id="data">
+                                    </div>
+                                    <div id="buttonsDiv">
+                                        <span>
+                                            <input type="submit" tabindex="8" id="pay" value="Pay" name="pay" style="margin-right: 25px;" class="btn btn-small btn-danger">
+                                        </span>
+
+                                        @if (TempData["Message"] != null)
+                                        {
+                                            <div style="margin-top:7px">
+                                                @Html.Partial("_Message", (Odigo.Model.Model.ApplicationMessage)TempData["Message"])
+                                            </div>
+                                        }
+                                    </div>
+                                    <input id="__wdx_ysfdr_xpl" name="__wdx_ysfdr_xpl" type="hidden" value="">
+                                    <input id="__wrx_yux_frd_xlp" name="__wrx_yux_frd_xlp" type="hidden" value="L3BheWRpcmVjdC9QYXkvUmVzcG9uc2VQb3N0Lz9yZXNwPVoxJmRlc2M9KFNlc3Npb24gTG9zdC9UaW1lIE91dCkmdHhuUmVmPTE5MDY0MTE0NjE4OTM0MjgmcGF5UmVmPSZyZXRSZWY9JmNhcmROdW09MCZhcHByQW10PTAmYW10PTYwMDAwMCZ1cmw9aHR0cHMlM2ElMmYlMmZpYmFuay5ndGJhbmsuY29tJTJmR1RQYXklMmZSZXNwLmFzcHg=">
+                                </div>
+                                <div>
+
+
+                                </div>
+                            </form>
+                            @*<div id="processing" style="display: none;" align="center">
+                                <p style="font-size: 18px;" align="center">
+                                    Please wait...
+                                </p>
+                                <img src="./WebPAY - Goldoasis Web Solutions_files/ajax-loader.gif" alt="loading">
+                            </div>*@
+
+
+
+
+                            <div id="verifymobilediv" style="display: none;">
+                            </div>
+                            <div id="logos">
+                                <hr>
+                                <div class="line" style="margin-bottom: -10px;">
+                                    <a id="stLink" target="_blank" class="greydout">
+                                        <img id="safeTokenImg" style="margin-bottom:5px;" src="~/Content/Images/webpay/safetoken.png" alt="safetoken">
+                                    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    @*<a id="mscAuthLink" target="_blank" class="tooltip" title="Your card may be eligible or enrolled in MasterCard SecureCode payer&lt;br /&gt; authentication programs. After clicking on Pay, your Card Issuer may prompt &lt;br /&gt;you for your payer authentication password to complete your purchase.">
+                                        <img id="mcImg" src="~/Content/Images/webpay/mastercode.png" width="76" height="40" alt="mastercode">
+                                    </a>*@
+                                    <a id="mscAuthLink" target="_blank" title="Your card may be eligible or enrolled in MasterCard SecureCode payer&lt;br /&gt; authentication programs. After clicking on Pay, your Card Issuer may prompt &lt;br /&gt;you for your payer authentication password to complete your purchase.">
+                                        <img id="mcImg" src="~/Content/Images/webpay/mastercode.png" width="76" height="40" alt="mastercode">
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a id="visaAuthLink" target="_blank" class="greydout">
+                                        <img id="vsImage" src="~/Content/Images/webpay/visa.png" width="76" height="40" alt="visa">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @*<hr />*@
+                        <div class="text">
+                            <p>
+                                © Copyright Interswitch Limited
+                            </p>
+                        </div>
+                    </div>
+
+                @*</div>
+            </div>*@
+        @*</div>
+    </div>*@
+
+    
+}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="simple-heading">
+                        @Model.Payment.FeeType.Name Payment
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Student.UniqueId, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(model => model.Student.UniqueId)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Student.FullName, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(model => model.Student.FullName)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.School.Id, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(model => model.School.Name)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Class.Class, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(model => model.Class.Class)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Payment.SessionTerm.Id, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(modelItem => Model.Payment.SessionTerm.Name)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.SubjectCategory.Id, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(model => model.SubjectCategory.Name)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Payment.FeeType.Id, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Html.DisplayFor(model => model.Payment.FeeType.Name)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.Payment.Amount, new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-8 ">
+                                    @Model.Payment.Amount.ToString("n")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                       
+                        <div class="col-md-12 ">
+                            <hr />
+                            <div class="form-group  ">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-8 ">
+                                    <button class="btn btn-danger btn-lg " type="submit">Pay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+}*@
+
+

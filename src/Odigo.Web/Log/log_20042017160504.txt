@@ -1,0 +1,5 @@
+System.ArgumentNullException: Value cannot be null.
+Parameter name: Null object argument. Please contact your system administartor
+   at Odigo.Data.Repository.Create[T](List`1 models) in C:\Users\Dan\Documents\Visual Studio 2015\Projects\Odigo\Odigo.Data\Repository.cs:line 416
+   at Odigo.Business.TeacherSubscriptionEditorService.Save(Teacher teacher) in C:\Users\Dan\Documents\Visual Studio 2015\Projects\Odigo\Odigo.Business\TeacherSubscriptionEditorService.cs:line 67
+   at Odigo.Web.Areas.Teacher.Controllers.SubscriptionController.FormPreview(TeacherSubscriptionViewModel vm) in C:\Users\Dan\Documents\Visual Studio 2015\Projects\Odigo\Odigo.Web\Areas\Teacher\Controllers\SubscriptionController.cs:line 891

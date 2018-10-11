@@ -1,0 +1,16 @@
+﻿@model Odigo.Web.Areas.Teacher.Models.TeacherSubscriptionViewModel
+@using Odigo.Model.Model
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_SemiPlainLayout.cshtml";
+}
+
+@*<div class="text-danger"><b>The execution in miliseconds is: @ViewBag.Time</b></div>*@
+
+
+
+@if (Model != null)
+{
+    @Html.Partial("~/Areas/Common/Views/Shared/_TeacherDetails.cshtml", Model)
+}

@@ -1,0 +1,106 @@
+﻿@model Odigo.Web.Areas.Employer.Models.EmployerRegistrationViewModel
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div style="font-size:x-large">Basic Information</div>
+
+
+    </div>
+
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.LastName, new { @class = "control-label " })
+                    @Html.TextBoxFor(model => model.Employer.Person.LastName, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.LastName)
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.FirstName, new { @class = "control-label " })
+                    @Html.TextBoxFor(model => model.Employer.Person.FirstName, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.FirstName)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.OtherName, new { @class = "control-label " })
+                    @Html.TextBoxFor(model => model.Employer.Person.OtherName, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.OtherName)
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Sex.Id, new { @class = "control-label " })
+                    @Html.DropDownListFor(f => f.Employer.Sex.Id, (IEnumerable<SelectListItem>)ViewBag.Sexs, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Sex.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.State.Id, new { @class = "control-label " })
+                    @Html.DropDownListFor(f => f.Employer.Person.State.Id, (IEnumerable<SelectListItem>)ViewBag.States, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.State.Id)
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.Lga.Id, new { @class = "control-label " })
+                    @Html.DropDownListFor(f => f.Employer.Person.Lga.Id, (IEnumerable<SelectListItem>)ViewBag.Lgas, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.Lga.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.ContactAddress, new { @class = "control-label " })<label style="font-weight:bold; font-size:11pt" class="text-danger">*</label>
+                    @Html.TextBoxFor(model => model.Employer.Person.ContactAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.ContactAddress)
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.Email, new { @class = "control-label " })
+                    @Html.TextBoxFor(model => model.Employer.Person.Email, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.Email)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Employer.Person.MobilePhone, new { @class = "control-label " })
+                    @Html.TextBoxFor(model => model.Employer.Person.MobilePhone, new { @class = "form-control applicant" })
+                    @Html.ValidationMessageFor(model => model.Employer.Person.MobilePhone)
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+

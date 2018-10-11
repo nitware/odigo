@@ -1,0 +1,331 @@
+﻿@model Odigo.Web.Areas.Employer.Models.RequestViewModel
+@using Odigo.Model.Model
+
+@*@{
+    Layout = null;
+}*@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @section JavaScript {
+    @Scripts.Render("~/bundles/jquery")
+        
+        <script type="text/javascript">
+            toUrl = '@Url.Action("Slip", "Payment", new { Area = "Transaction" })';
+            fromUrl = '@Url.Action("Send", "Request", new { Area = "Employer" })';
+        </script>
+
+        <script src="~/Scripts/employer/costImplication.js"></script>
+     }
+
+    <style>
+        .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('../../../../Content/Images/25.gif') 50% 50% no-repeat rgba(249,249,249, 0.4);
+    }
+    </style>
+</head>
+<body>
+    @*<div> CostImplication
+        </div>
+        <div class="text-danger">gtoop</div>
+        <button id="btnTest">Test</button>*@
+
+
+    <span id="busy" style="display:none; " class="loader">
+        Please wait ...
+    </span>
+
+
+    <div class="alert alert-info fade in nomargin">
+        @*<h4 class="list-group-item-heading"><i class="fa fa-calculator"></i> Request Cost Implication</h4>*@
+
+        <h3 class="list-group-item-heading"><i class="fa fa-calculator"></i> Cost Implication of Request</h3>
+        <p class="list-group-item-text">The cost break down of sending request to selected teacher and the minimum monthly pay is shown here</p>
+    </div>
+
+
+    @*<ul class="list-group">
+            <li class="list-group-item active">
+                <h4 class="list-group-item-heading"><i class="fa fa-sort-amount-asc"></i> Request Cost Implication</h4>
+                <p class="list-group-item-text">Your basic details</p>
+            </li>
+        </ul>*@
+
+
+    @*<ul class="list-group">
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">Request Cost Implication</h4>
+            </li>
+        </ul>*@
+
+    @if (TempData["Message"] != null)
+    {
+        @Html.Partial("_Message", (ApplicationMessage)TempData["Message"])
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+@using (Html.BeginForm("Send", "Request", FormMethod.Post, new { id = "frmCostImplication" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+                @*<div class="alert alert-warning fade in nomargin" style="font-size:16px">*@
+
+                <div style="font-size:16px; color:silver">
+                    You want to send <b>employment request</b> to a teacher with details below. The <b>Request Cost</b> column below shows the cost associated with sending request to the selected teacher (<b>@Html.ActionLink(Model.Teacher.Person.FullName, "Details", "Tutor", new { Area = "Common", tid = Model.Teacher.Person.Id }, new { target = "_blank" })</b>). The cost vary from teacher to teacher based on their qualification.
+                    <b>Click the 'Pay' button below to pay and send the request</b>
+                </div>
+                <br />
+                if (Model != null && Model.Teacher != null && Model.Teacher.Person != null && Model.Teacher.Person.Id > 0)
+                {
+                    <div style="font-weight:bold; font-size:20px">About to send request to @Html.ActionLink(Model.Teacher.Person.FullName, "Details", "Tutor", new { Area = "Common", tid = Model.Teacher.Person.Id }, new { target = "_blank" })</div>
+                        <div class="table-responsive ">
+                            <table class="table grid-table table-condensed table-head-alt mb30">
+                                <thead>
+                                    <tr style="height:40px; vertical-align:middle; background-color:#97b6d2;">
+                                        @*<th class="well">
+                                                Name
+                                            </th>*@
+                                        <th class="well">
+                                            Work Mode
+                                        </th>
+                                        <th class="well">
+                                            Qualification
+                                        </th>
+                                        <th class="well">
+                                            Child Category
+                                        </th>
+                                        <th class="well">
+                                            Experience
+                                        </th>
+                                        <th class="well">
+                                            Location
+                                        </th>
+                                        <th class="well">
+                                            Request Cost
+                                        </th>
+                                        <th class="well"></th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    @*<td>
+                                            @Html.ActionLink(Model.Teacher.Person.FullName, "Form", "Subscription", new { Area = "Teacher", tid = Model.Teacher.Person.Id }, new { target = "_blank" })
+                                        </td>*@
+                                    <td>
+                                        @Html.HiddenFor(model => Model.Teacher.Type.Id)
+                                        @Html.DisplayFor(model => Model.Teacher.Type.Name)
+                                    </td>
+                                    <td>
+                                        @Html.HiddenFor(model => Model.Teacher.Qualifications)
+                                        @Html.DisplayFor(model => Model.Teacher.Qualifications)
+                                    </td>
+                                    <td>
+                                        @Html.HiddenFor(model => Model.Teacher.ChildCategories)
+                                        @Html.DisplayFor(model => Model.Teacher.ChildCategories)
+                                    </td>
+                                    <td>
+                                        @if (string.IsNullOrWhiteSpace(Model.Teacher.Experience))
+                                        {
+                                            <span>No experience</span>
+                                        }
+                                        else
+                                        {
+                                            @Html.HiddenFor(model => Model.Teacher.Experience)
+                                            @Html.DisplayFor(model => Model.Teacher.Experience)
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.HiddenFor(model => Model.Teacher.Person.State.Id)
+                                        @Html.DisplayFor(model => Model.Teacher.Person.State.Name)
+                                    </td>
+                                    <td>
+                                        @if (Model.ServiceCharge != null)
+                                        {
+                                                @Model.ServiceCharge.Amount.ToString("n")
+                                        }
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-white btn-lg " type="button" id="btnPay"><i class="fa fa-envelope"></i> Send</button>
+                                    </td>
+
+                                    @*<td>
+                                            <a target="_blank" href="@Url.Action("CostImplication", "Request", new { area = "Employer", epid = 67, tid = Model[i].Person.Id })" class="btn btn-white btn-lg">
+                                                <i class="fa fa-envelope-o "></i>
+                                                <span>Send Request</span>
+                                            </a>
+                                        </td>*@
+                                </tr>
+                            </table>
+                        </div>
+                }
+                else
+                {
+                    <div class="alert alert-dismissible alert-danger">
+                        <p>
+                            No teacher found!
+                        </p>
+                    </div>
+                }
+
+
+                <div id="logos">
+                    <div class="line" style="margin-bottom: -10px;">
+                        <img style="margin-right:10px" id="isImage" src="~/Content/Images/webpay/interswitch_logo.jpg" height="40" alt="visa">
+                        <img id="safeTokenImg" style="margin-right:10px;" src="~/Content/Images/webpay/safetoken.png" alt="safetoken">
+                        <img style="margin-right:10px" id="mcImg" src="~/Content/Images/webpay/mastercode.png" height="40" alt="mastercode">
+                        <img style="margin-right:10px" id="vsImage" src="~/Content/Images/webpay/visa.png" height="40" alt="visa">
+                    </div>
+                </div>
+
+                @*<br />*@
+
+}
+            </div>
+        </div>
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-body ">
+                    @*<div class="alert alert-warning fade in nomargin" style="font-size:16px">*@
+                    <div style="font-size:16px; color:silver">
+                        <p>
+                            The teaching period(s) and its associated <b>minimum cost</b> for the selected teacher is shown below. The cost for each period
+                            is dependent on the <b>teacher's educational qualification</b> and the category of the child to be taught. The minimum amount payable to the teacher
+                            monthly is shown below for each child category on the <b>Monthly Pay</b> column. Kindly review the cost implication associated with employing each selected teacher
+                            before making payment. For further enquiries, send an email to info@dlite.com or call any of the following numbers: 0809-900-8000, 0703-400-500, 0803-000-2000
+                        </p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th class="well">Child Category</th>
+                                    <th class="well">No of Student</th>
+                                    <th class="well">Weekly schedule of @Html.ActionLink(Model.Teacher.Person.FullName, "Details", "Tutor", new { Area = "Common", tid = Model.Teacher.Person.Id }, new { target = "_blank" })</th>
+                                    <th class="well">Monthly Pay</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (int row = 0; row < Model.RequestCostImplications.Count; row++)
+                                {
+                                    <tr>
+                                        <td style="min-width:170px">
+                                            @Html.HiddenFor(model => model.RequestCostImplications[row].EmployerStudentCategory.StudentCategory.Id)
+                                            @Html.HiddenFor(model => model.RequestCostImplications[row].EmployerStudentCategory.StudentCategory.Name)
+                                            @Html.DisplayFor(model => model.RequestCostImplications[row].EmployerStudentCategory.StudentCategory.Name)
+                                        </td>
+                                        <td>
+                                            @Html.HiddenFor(model => model.RequestCostImplications[row].EmployerStudentCategory.NoOfStudent)
+                                            @Html.DisplayFor(model => model.RequestCostImplications[row].EmployerStudentCategory.NoOfStudent)
+                                        </td>
+                                        <td>
+                                            @if (Model.RequestCostImplications[row].TeacherAvailabilities != null && Model.RequestCostImplications[row].TeacherAvailabilities.Count > 0)
+                                            {
+                                                <table class="table table-condensed " style="font-size:14px">
+                                                    @{
+                                                        int k = 0;
+
+                                                        for (int i = 0; i < Model.Periods.Count; i++)
+                                                        {
+                                                            <thead>
+                                                                <tr>
+                                                                    @for (int j = 0; j < Model.WeekDays.Count; j++)
+                                                                    {
+                                                                        if (i == 0 || j == 0)
+                                                                        {
+                                                                            <td class="well">
+                                                                                <div style="text-align:center;">
+                                                                                    @Html.DisplayFor(model => model.WeekDays[j].Abbreviation)
+                                                                                </div>
+                                                                                @Html.DisplayFor(model => model.Periods[i].Name)
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td style="text-align:center; border-left:1px solid gainsboro">
+                                                                                @if (Model.RequestCostImplications[row].TeacherAvailabilities[k].TeacherAvailability.IsAvailable)
+                                                                                {
+                                                                                    <img src="@Url.Content("~/Content/Images/success.png")" height="20" alt="" />
+                                                                                    @Html.DisplayFor(model => model.RequestCostImplications[row].TeacherAvailabilities[k].TeachingCost.Amount)
+                                                                                }
+
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherAvailabilities[k].TeacherAvailability.Id)
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherAvailabilities[k].TeachingCost.Amount)
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherAvailabilities[k].TeacherAvailability.Period.Id)
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherAvailabilities[k].TeacherAvailability.WeekDay.Id)
+
+                                                                                @{
+                                                                                    k = k + 1;
+                                                                                }
+                                                                            </td>
+
+
+                                                                            @*<td style="text-align:center; border-left:1px solid gainsboro">
+                                                                                @if (Model.RequestCostImplications[row].TeacherPeriodsAvailable[k].IsAvailable)
+                                                                                {
+                                                                                    <img src="@Url.Content("~/Content/Images/success.png")" height="20" alt="" />
+                                                                                    @Html.DisplayFor(model => model.RequestCostImplications[row].TeacherPeriodsAvailable[k].Cost)
+                                                                                }
+
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherPeriodsAvailable[k].Id)
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherPeriodsAvailable[k].Cost)
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherPeriodsAvailable[k].Period.Id)
+                                                                                @Html.HiddenFor(model => model.RequestCostImplications[row].TeacherPeriodsAvailable[k].WeekDay.Id)
+
+                                                                                @{
+                                                                                    k = k + 1;
+                                                                                }
+                                                                            </td>*@
+                                                                       }
+                                                                  }
+                                                                </tr>
+                                                            </thead>
+                                                         }
+                                                    }
+
+                                                </table>
+                                                }
+                                                else
+                                                {
+                                                    <div class="text-danger">Teacher did not express interest to teach @Html.DisplayFor(model => model.RequestCostImplications[row].EmployerStudentCategory.StudentCategory.Name) student</div>
+                                                }
+                                        </td>
+                                        <td>@Model.RequestCostImplications[row].MonthlyPay.ToString("n")</td>
+                                    </tr>
+                                                                                    }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+                                                                                        }
+
+
+
+</body>
+
+
+
+</html>

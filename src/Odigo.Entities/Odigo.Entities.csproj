@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B703BE65-8C79-41FB-9153-A72E57984572}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Odigo.Entities</RootNamespace>
+    <AssemblyName>Odigo.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="COUNTRY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EMPLOYER.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EMPLOYER_DESIRED_TIME.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EMPLOYER_STUDENT_CATEGORY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LGA.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MESSAGE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MESSAGE_TYPE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NEWS.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OCCUPATION.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OdigoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OdigoModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OdigoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OdigoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OdigoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="O_LEVEL_EXAM_SITTING.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="O_LEVEL_GRADE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="O_LEVEL_SUBJECT.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="O_LEVEL_TYPE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT_CHANNEL.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT_INTERSWITCH_TRANSACTION.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT_MODE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT_TERMINAL.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT_TRANSACTION_STATUS.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAYMENT_WEB.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PERIOD.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PERSON.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PERSON_LOGIN.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PERSON_TYPE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QUALIFICATION.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QUALIFICATION_CATEGORY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QUICK_LINK.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RATING.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REQUEST.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REQUEST_FOR_EMPLOYMENT_COST_IMPLICATION.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REQUEST_FOR_EMPLOYMENT_TEACHER_AVAILABILITY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REQUEST_STATUS.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RIGHT.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ROLE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ROLE_RIGHT.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCHOOL_TYPE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SECURITY_QUESTION.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SERVICE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SERVICE_CHARGE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SEX.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STUDENT_CATEGORY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_AVAILABILITY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_AVAILABILITY_STATUS.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_AWARD.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_CURRENT_AVAILABILITY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_EDUCATIONAL_QUALIFICATION.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_EMPLOYMENT_HISTORY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_O_LEVEL_RESULT.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_O_LEVEL_RESULT_DETAIL.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_REFEREE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_STUDENT_CATEGORY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_TYPE.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_VERIFICATION_LOG.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHER_VERIFICATION_STATUS.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHING_COST.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEACHING_CURRENT_COST.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WEEK_DAY.cs">
+      <DependentUpon>OdigoModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="OdigoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OdigoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="OdigoModel.edmx.diagram">
+      <DependentUpon>OdigoModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OdigoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OdigoModel.Context.cs</LastGenOutput>
+      <DependentUpon>OdigoModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="OdigoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OdigoModel.edmx</DependentUpon>
+      <LastGenOutput>OdigoModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

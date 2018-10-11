@@ -1,0 +1,407 @@
+﻿@model Odigo.Web.Models.HomeViewModel
+@using Odigo.Model.Model;
+
+@{
+    ViewBag.Title = ":: Home";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            LoadData("@Url.Action("GetLatestVerifiedTeachers", "Home")", $("#teachers"));
+            LoadData("@Url.Action("GetLatestNews", "Home")", $("#step22"));
+            LoadData("@Url.Action("GetTopQuickLinks", "Home")", $("#step33"));
+            LoadData("@Url.Action("PopulateSearchDropdowns", "Home")", $("#searchPanel"));
+        
+            @*$('#search1').click(function () {
+                var url = '@Url.Action("Result", "Search", new { Area = "Common" })';
+                window.open(url, "_blank")
+            })*@
+
+            @*$('#btnSearch').click(function () {
+
+                alert('fired!!!');
+
+                var teacherTypeId = $("#TeacherType_Id").val();
+                var studentCategoryId = $("#StudentCategory_Id").val();
+                var qualificationId = $("#Qualification_Id").val();
+                var locationId = $("#State_Id").val();
+
+                if ((teacherTypeId == "" || teacherTypeId == null) && (studentCategoryId == "" || studentCategoryId == null) && (qualificationId == "" || qualificationId == null) && (locationId == "" || locationId == null)) {
+                    alert("No search criteria selected! You must select at least one");
+                    return;
+                }
+
+                //window.open("about:blank", "myNewPage");
+
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetTeacherBy", "Home", new { Area = ""})',
+                    data: $("#frmSearch").serialize(),
+
+                  
+
+                    beforeSend: function () {
+                        $("#busy").show();
+                    },
+                    complete: function () {
+                        $("#busy").hide();
+                    },
+
+                    success: SuccessFunc,
+                    error: ErrorFunc,
+
+                    //success: function (result) {
+                    //    success = true;
+                    //    searchResult = result;
+                    //},
+                    //error: function () {
+                    //    alert("Operation failed!");
+                    //}
+                });
+
+                return false;
+            });*@
+
+            @*function SuccessFunc(result) {
+                var jsonResult = $.parseJSON(result);
+               
+                if (jsonResult.isSuccessful) {
+                    window.location.href = '@Url.Action("Result", "Search", new { Area = "Common" })';
+                }
+                else {
+                    alert(jsonResult.message);
+                }
+            }
+
+            function ErrorFunc() {
+                alert("Operation failed!");
+            }*@
+
+            function LoadData(url, panel) {
+                $.ajax({
+                    type: "GET",
+                    //traditional: true,
+                    url: url,
+                    dataType: 'html',
+                    success: SuccessFunc,
+                    error: ErrorFunc,
+                })
+
+                function SuccessFunc(data) {
+                    panel.html(data);
+
+                    if (panel.prop('id') == 'searchPanel') {
+                        $("#btnSearch").click(function () {
+                            findTeacher();
+                        })
+                    }
+                }
+
+                function ErrorFunc() {
+                    alert("Operation failed!");
+                }
+            }
+
+            function findTeacher(){
+                var teacherTypeId = $("#TeacherType_Id").val();
+                var studentCategoryId = $("#StudentCategory_Id").val();
+                var qualificationId = $("#Qualification_Id").val();
+                var locationId = $("#State_Id").val();
+
+                if ((teacherTypeId == "" || teacherTypeId == null) && (studentCategoryId == "" || studentCategoryId == null) && (qualificationId == "" || qualificationId == null) && (locationId == "" || locationId == null)) {
+                    alert("No search criteria selected! You must select at least one");
+                    return;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetTeacherBy", "Home", new { Area = ""})',
+                    data: $("#frmSearch").serialize(),
+                    beforeSend: function () {
+                        $("#busy").show();
+                    },
+                    complete: function () {
+                        $("#busy").hide();
+                    },
+
+                    success: function (result) {
+                        var jsonResult = $.parseJSON(result);
+
+                        if (jsonResult.isSuccessful) {
+                            window.location.href = '@Url.Action("Result", "Search", new { Area = "Common" })';
+                        }
+                        else {
+                            alert(jsonResult.message);
+                        }
+                    },
+                    error: function() {
+                        alert("Operation failed!");
+                    }
+                });
+
+                return false;
+            }
+
+
+
+        })
+</script>
+}
+
+<style>
+   .side-list tr:first-child td:nth-child(1) {
+        border-top: none;
+        padding-top:17px;
+    }
+   .tab-content-closed {
+       margin-bottom:15px; 
+       padding:0; 
+       border-right:solid 1px gainsboro; 
+       border-bottom:solid 1px gainsboro;
+       border-left:solid 1px gainsboro; 
+   }
+   .tab-pane-closed {
+       font-size:14px; 
+       margin:0 15px 15px 15px;
+   }
+   .tab-pane-content-closed {
+       padding:15px 15px 0 15px;
+   }
+
+    .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('../../../../Content/Images/25.gif') 50% 50% no-repeat rgba(249,249,249, 0.4);
+        
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-9">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="panel panel-default" style="background-color:transparent; background-image:url('../../Content/Images/Do_you_need_a_Tutor.jpg');background-repeat: no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover; background-position: center top;opacity:1 ">
+                    <div class="panel-body">
+                        <div style="height:185px;  ">
+                            <div style="font-size:22px; color:white; font-weight:bold">Do you need a teacher?</div>
+
+                            <div style="background-color:rgba(252,252,252,0.9); padding:10px;border-radius:3px">
+                                <div style="color:black;font-size:14px; ">Do you need extra moral classes for your child? Or you want to hire a full time teacher for your school? <b>@Html.ActionLink("Sign Up Now", "Cost", "Service", new { Area = "Common", ptid = "34" }, new { @style = "color:red;font-size:14px" })</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default" style="background:gray; background-image:url('../../Content/Images/tutor_job.jpg');background-repeat: no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover; background-position: center top;opacity:0.7 ">
+                    <div class="panel-body ">
+                        <div style="height:185px; ">
+                            <div style="font-size:22px; color:white; font-weight:bold">Do you need a teaching job?</div>
+                            <div style="background-color:rgba(252,252,252,0.9); padding:10px;border-radius:3px">
+                                <div style="color:black; font-size:14px">Are you a graduate who is interested in a teaching job (lesson or full time)? The opportunity is here? @Html.ActionLink("Sign Up Now", "Cost", "Service", new { Area = "Common", ptid = "2" }, new { @style = "color:red; font-size:14px;font-weight:bold" })</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default" style="background:gray;  background-image:url('../../Content/Images/tutor_selection_tip.jpg');background-repeat: no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover; background-position: center top;opacity:0.6 ">
+                    <div class="panel-body ">
+                        <div style="height:185px; ">
+                            <div>
+                                <div style="color:white;font-size:20px;font-weight:bold">Tips that will help parents select the appropriate teacher for their child. <b>@Html.ActionLink("Get Started", "Form", new { Controller = "Subscription", Area = "Teacher" }, new { @style = "color:red" })</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h2>Find Teacher</h2>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        <div id="searchPanel">
+                            @if (ViewBag.TeacherTypes != null && ViewBag.StudentCategories != null && ViewBag.Qualifications != null && ViewBag.States != null)
+                            {
+                                @Html.Partial("_SearchPanel", Model.BaseSearchViewModel)
+                            }
+                            else
+                            {
+                                <center>
+                                    <img src="@Url.Content("~/Content/Images/25.gif")" height="35" alt="" />
+                                    Loading ...
+                                </center>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="about-ems">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h2>Latest Verified Teachers</h2>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+
+                            <div class="row">
+                                <div id="teachers" class="col-md-12">
+                                    @if (Model != null && Model.BaseSearchViewModel != null && Model.BaseSearchViewModel.Teachers != null && Model.BaseSearchViewModel.Teachers.Count > 0)
+                                    {
+                                        @Html.Partial("_Teachers", Model.BaseSearchViewModel.Teachers)
+                                    }
+                                    else
+                                    {
+
+                                        <center id="busy1" >
+                                            <img src="@Url.Content("~/Content/Images/25.gif")" height="35" alt="" />
+                                            Loading ...
+                                        </center>
+
+
+                                  
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="banner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <ul class="nav nav-tabs responsive" id="sideTab">
+                            <li id="tab22" class="test-class active"><a class="deco-none" href="#step22" data-toggle="tab"> <span class="step">Latest</span></a></li>
+                            <li id="tab33"><a class="deco-none" href="#step33" data-toggle="tab"><span class="step">Links</span></a></li>
+                            <li id="tab11"><a class="deco-none misc-class" href="#step11" data-toggle="tab"><span class="step">Contact</span></a></li>
+                        </ul>
+
+                        @*<div class="tab-content responsive tab-content" style="margin:10px 0; padding:0; background-color:red ">*@
+
+                        <div class="tab-content responsive tab-content-closed">
+                            <div class="tab-pane active" id="step22" style="font-size:14px; margin:0 15px 15px 15px">
+                                <div class="table-responsive">
+                                    @if (Model != null && Model.News != null && Model.News.Count > 0)
+                                    {
+                                       @Html.Partial("_NewsPanel", Model.News)
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        <center id="busy2" >
+                                            <img src="@Url.Content("~/Content/Images/25.gif")" height="35" alt="" />
+                                            Loading ...
+                                        </center>
+
+
+                                        @*<br />
+                                        <div class="alert alert-dismissible alert-warning">
+                                            <p>
+                                                No news
+                                            </p>
+                                        </div>*@
+                                    }
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane" id="step33" style="font-size:14px; margin:0 15px 15px 15px">
+                                @if (Model != null && Model.QuickLinks != null)
+                                {
+                                    @Html.Partial("_QuickLinksPanel", Model.QuickLinks)
+                                }
+                                else
+                                {
+                                    <center id="busy3">
+                                        <img src="@Url.Content("~/ Content / Images / 25.gif")" height="35" alt="" />
+                                        Loading...
+                                    </center>
+
+
+                                    @*<div class="alert alert-dismissible alert-warning">
+                    <p>
+                        No quick links
+                    </p>
+                </div>*@
+                                }
+
+                                @*@Html.Partial("_SchoolList", Model.PrimarySchools)*@
+                            </div>
+
+                            <div class="tab-pane  " id="step11">
+                                @*@Html.Partial("_SchoolList", Model.TertiaryInstitutions)*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">Adverts</div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                Place your adverts here
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Adverts</div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                Place your adverts here
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+

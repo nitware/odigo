@@ -1,0 +1,44 @@
+﻿@model Odigo.Web.Areas.Employer.Models.ActivityViewModel
+@using Odigo.Model.Model   
+
+@*@{ 
+    Layout = null;
+}*@
+
+@section JavaScript {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+        
+
+        })
+    </script>
+}
+
+<style>
+    .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('../../../../Content/Images/25.gif') 50% 50% no-repeat rgba(249,249,249, 0.4);
+    }
+</style>
+
+
+<div>
+    
+    <span id="spCurrentPage">@Model.PageId</span>
+
+    <span id="busy" style="display:none; " class="loader">
+        @*<img src="@Url.Content("~/Content/Images/25.gif")" height="45" alt="" />*@
+        Please wait ...
+    </span>
+
+    <div id="dvContent"></div>
+</div>

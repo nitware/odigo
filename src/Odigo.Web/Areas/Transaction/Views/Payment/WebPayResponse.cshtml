@@ -1,0 +1,175 @@
+﻿@model Ahhwall_S.Model.Model.Invoice
+
+@{
+    Layout = "~/Views/Shared/_PlainLayout.cshtml";
+}
+
+@section scripts {
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnPrint").on('click', function () {
+            $(".printable").print();
+            return false;
+        });
+    });
+
+    </script>
+}
+
+
+
+@*@using (Html.BeginForm("Invoice", "Document", new { Area = "Common", id ="wpr"}))*@
+@using (Html.BeginForm("Invoice", "Document", new { Area = "Common" }, FormMethod.Post, new { target = "_blank"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(m => m.Number)
+    @Html.HiddenFor(m => m.IssuerName)
+    @Html.HiddenFor(m => m.IssuerLogoUrl)
+    @Html.HiddenFor(m => m.IssuerEmail)
+    @Html.HiddenFor(m => m.RecipientName)
+    @Html.HiddenFor(m => m.RecipientAddress)
+    @Html.HiddenFor(m => m.RecipientPhone)
+    @Html.HiddenFor(m => m.RecipientEmail)
+    @Html.HiddenFor(m => m.Channel)
+    @Html.HiddenFor(m => m.Date)
+    @Html.HiddenFor(m => m.Paid)
+    
+    for (int i = 0; i < Model.Items.Count; i++)
+    {
+        @Html.HiddenFor(m => Model.Items[i].Item)
+        @Html.HiddenFor(m => Model.Items[i].Quantity)
+        @Html.HiddenFor(m => Model.Items[i].UnitCost)
+        @Html.HiddenFor(m => Model.Items[i].TotalCost)
+    }
+
+    <div class="row printable">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div>
+
+                <h1 class="text-primary"><b>Transaction Successful</b></h1>
+                <h5 class="text-primary">Your payment was completed successfully</h5>
+
+                <hr />
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.Label("ID", new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            @*@Html.DisplayFor(model => model.Student.LastName)*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.Label("Reference", new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            @*@Html.DisplayFor(model => model.Student.FirstName)*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.Label("Gateway", new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            Webpay
+                            @*@Html.DisplayFor(model => model.Student.FirstName)*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.LabelFor(model => model.Number, new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            @Html.DisplayFor(model => model.Number)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.Label("Amount", new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            @*@Html.DisplayFor(model => model.Payment.Amount)*@
+                            @*@Model.Payment.Amount.ToString("n")*@
+
+                            @Model.Items.Sum(s => s.TotalCost).ToString("n")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.LabelFor(model => model.Date, new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            @Html.DisplayFor(model => model.Date)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-xs-4">
+                            @Html.Label("Status", new { @class = "control-label " })
+                        </div>
+                        <div class="col-xs-8 ">
+                            Approved by Financial Institution
+                            @*@Html.DisplayFor(model => model.Student.FirstName)*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div class="form-group ">
+                <button id="btnPrint" type="button" class="btn btn-white btn-lg ">Print</button>
+                <button id="btnPrintInvoice" type="submit" class="btn btn-white btn-lg ">Print Invoice</button>
+                @*<button class="btn btn-white btn-lg ">Back to Term Registration</button>*@
+
+                @Html.ActionLink("Back to Term Registration", "Index", new { Controller = "Registration", Area = "Pupil" }, new { @class = "btn btn-white btn-lg" })
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+}

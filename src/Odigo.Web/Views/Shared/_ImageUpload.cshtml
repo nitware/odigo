@@ -1,0 +1,40 @@
+﻿@model string
+
+@*@{
+    string url = Model.Contains("http") ? Model : "~" + Model;
+}*@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12" style="margin-bottom:5px;">
+                <img id="image" class="img-responsive img-thumbnail" src="@Model" alt="image" style="max-width:100px" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-inline" >
+                    <span class="btn btn-default btn-file" >
+                        <input type="text" id="tbx-file-path" readonly="readonly" />
+                        <input id="fu-file-upload" name="File" type="file">
+
+                        @*<input id="fu-file-upload" name="File" type="file" style = "color:transparent;">*@
+                        @*<input id="fu-file-upload" name="File" type="file">Browse*@
+                    </span>
+
+                    <input class="btn btn-default btn-metro" type="button" name="hl-start-upload" id="hl-start-upload" value="Upload" />
+
+                    <span id="fileUploadProgress" style="display:none">
+                        <img src="@Url.Content("~/Content/Images/bx_loader.gif")" />
+                        <span>Uploading ...</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
